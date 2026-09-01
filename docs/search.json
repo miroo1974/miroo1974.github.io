@@ -12,5 +12,19 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "This project examines equity in FEMA Individual Assistance using Hurricane Harvey as an empirical case.\nThe study combines FEMA Individual Assistance records with socioeconomic and spatial data, including measures of disaster exposure such as rainfall intensity. FEMA administrative records reflect household applications and agency determinations of assistance eligibility and awards, while the additional socioeconomic and spatial data characterize the communities and disaster conditions in which those assistance decisions occurred."
+  },
+  {
+    "objectID": "research.html#disaster-exposure-community-vulnerability-and-equity-in-federal-disaster-assistance",
+    "href": "research.html#disaster-exposure-community-vulnerability-and-equity-in-federal-disaster-assistance",
+    "title": "Research",
+    "section": "",
+    "text": "This project examines equity in FEMA Individual Assistance using Hurricane Harvey as an empirical case.\nThe study combines FEMA Individual Assistance records with socioeconomic and spatial data, including measures of disaster exposure such as rainfall intensity. FEMA administrative records reflect household applications and agency determinations of assistance eligibility and awards, while the additional socioeconomic and spatial data characterize the communities and disaster conditions in which those assistance decisions occurred."
   }
 ]
