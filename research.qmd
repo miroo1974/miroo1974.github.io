@@ -1,0 +1,10 @@
+---
+title: "Research"
+format: html
+---
+
+## Disaster Exposure, Community Vulnerability, and Equity in Federal Disaster Assistance
+
+This project examines equity in FEMA Individual Assistance using Hurricane Harvey as an empirical case.
+
+The study combines FEMA Individual Assistance records with socioeconomic and spatial data, including measures of disaster exposure such as rainfall intensity. FEMA administrative records reflect household applications and agency determinations of assistance eligibility and awards, while the additional socioeconomic and spatial data characterize the communities and disaster conditions in which those assistance decisions occurred.
