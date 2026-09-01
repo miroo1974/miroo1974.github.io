@@ -4,3 +4,10 @@
 .Ruserdata
 
 /.quarto/
+
+.env
+.env.*
+*.key
+*.pem
+credentials.*
+secrets.*
