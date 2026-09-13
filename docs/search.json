@@ -47,5 +47,33 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "assignments/assign02.html",
+    "href": "assignments/assign02.html",
+    "title": "Assignment 2: Google Trends",
+    "section": "",
+    "text": "Search terms: Trump, Kamala Harris, Election\nGeography: United States\nTime window: Past 5 years\nCategory: All Categories\nSearch type: Web Search\nRetrieved: September 12, 2026, approximately 8:50 PM CDT"
+  },
+  {
+    "objectID": "assignments/assign02.html#query-parameters",
+    "href": "assignments/assign02.html#query-parameters",
+    "title": "Assignment 2: Google Trends",
+    "section": "",
+    "text": "Search terms: Trump, Kamala Harris, Election\nGeography: United States\nTime window: Past 5 years\nCategory: All Categories\nSearch type: Web Search\nRetrieved: September 12, 2026, approximately 8:50 PM CDT"
+  },
+  {
+    "objectID": "assignments/assign02.html#results",
+    "href": "assignments/assign02.html#results",
+    "title": "Assignment 2: Google Trends",
+    "section": "Results",
+    "text": "Results\nThe website CSV covered September 1, 2021, through September 1, 2026, with monthly observations. Changing the window to the past year produced weekly observations. Google Trends reports relative search interest rather than search counts: 100 represents the peak within a query, while 0 may indicate insufficient search volume rather than no searches. Removing Election changed the values of the remaining terms because Google rescaled the comparison.\nThe website and R results were not identical. The website returned 61 monthly observations, while R returned 262 weekly observations. The peak value for Trump was 40 on the website and 25 in R, whereas Election reached 100 in both. A direct date-by-date comparison was not appropriate because the intervals differed. In addition, the website searched Kamala Harris, while the provided R script searched the broader term Harris.\n\nlibrary(gtrendsR)\n\nTrumpHarrisElection = gtrends(\n  c(\"Trump\", \"Harris\", \"election\"),\n  onlyInterest = TRUE,\n  geo = \"US\",\n  gprop = \"web\",\n  time = \"today+5-y\",\n  category = 0\n)\n\nthe_df = TrumpHarrisElection$interest_over_time\nplot(TrumpHarrisElection)"
+  },
+  {
+    "objectID": "assignments/assign02.html#comparison-of-the-two-methods",
+    "href": "assignments/assign02.html#comparison-of-the-two-methods",
+    "title": "Assignment 2: Google Trends",
+    "section": "Comparison of the Two Methods",
+    "text": "Comparison of the Two Methods\nThe website requires the researcher to record query parameters manually, whereas the R object records parameters such as the keyword, geography, time window, search type, and category. R is easier to reproduce and scale to many searches, although large collections require multiple queries and careful normalization. Both methods rely on sampled and rescaled Google Trends data. The website interface can change, while gtrendsR can fail because of rate limits or changes to the service; caching successful pulls helps preserve provenance and detect problems.\nThe R object also contained country, region, DMA, city, related-topic, and related-query data that were absent from the website CSV. Harris and Kamala Harris produced different series because the broader term can represent other people, places, and organizations. Two R pulls conducted approximately ten minutes apart were identical in this instance, but sampled Trends results are not guaranteed to remain identical in future pulls."
   }
 ]

@@ -14,7 +14,8 @@ website:
         text: Teaching
       - href: cv.qmd
         text: CV
-
+      - href: assignments/assign02.qmd
+        text: Assignments
 format:
   html:
     theme: cosmo
