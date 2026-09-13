@@ -1,5 +1,19 @@
 ---
-title: "teaching"
-format: html
+title: "Teaching"
 ---
 
+## Guest Lectures
+
+-   EPPS 2301: Research Design in the Social and Policy Sciences
+-   EPPS 7313: Descriptive and Inferential Statistics
+
+## Teaching Assistant
+
+-   GOVT 2305: American National Government
+-   GOVT 2306: State and Local Government
+-   EPPS 2301: Research Design in the Social and Policy Sciences
+-   PPPE 6302: Conflict in Cyberspace
+-   PPPE 6321: Economics for Public Policy
+-   EPPS 7313: Descriptive and Inferential Statistics
+
+## 

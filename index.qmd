@@ -1,11 +1,16 @@
 ---
-title: "miroo1974.github.io"
+title: "Sunghye Choi"
+image: profile.jpg
+about:
+  template: trestles
+  image-shape: round
+  image-width: 14em
 ---
 
-This is a Quarto website.
+I am a PhD student in Public Policy and Political Economy at the University of Texas at Dallas.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+### Research Interests
 
-```{r}
-1 + 1
-```
+-   Disaster and Emergency Management
+-   AI and Emerging Technologies in Public Policy
+-   Geospatial Policy Analysis

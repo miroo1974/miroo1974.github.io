@@ -2,16 +2,30 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "miroo1974.github.io",
+    "title": "Sunghye Choi",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "I am a PhD student in Public Policy and Political Economy at the University of Texas at Dallas.\n\nResearch Interests\n\nDisaster and Emergency Management\nAI and Emerging Technologies in Public Policy\nGeospatial Policy Analysis"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "EPPS 2301: Research Design in the Social and Policy Sciences\nEPPS 7313: Descriptive and Inferential Statistics"
+  },
+  {
+    "objectID": "teaching.html#guest-lectures",
+    "href": "teaching.html#guest-lectures",
+    "title": "Teaching",
+    "section": "",
+    "text": "EPPS 2301: Research Design in the Social and Policy Sciences\nEPPS 7313: Descriptive and Inferential Statistics"
+  },
+  {
+    "objectID": "teaching.html#teaching-assistant",
+    "href": "teaching.html#teaching-assistant",
+    "title": "Teaching",
+    "section": "Teaching Assistant",
+    "text": "Teaching Assistant\n\nGOVT 2305: American National Government\nGOVT 2306: State and Local Government\nEPPS 2301: Research Design in the Social and Policy Sciences\nPPPE 6302: Conflict in Cyberspace\nPPPE 6321: Economics for Public Policy\nEPPS 7313: Descriptive and Inferential Statistics"
   },
   {
     "objectID": "research.html",
@@ -26,5 +40,12 @@
     "title": "Research",
     "section": "",
     "text": "This project examines equity in FEMA Individual Assistance using Hurricane Harvey as an empirical case.\nThe study combines FEMA Individual Assistance records with socioeconomic and spatial data, including measures of disaster exposure such as rainfall intensity. FEMA administrative records reflect household applications and agency determinations of assistance eligibility and awards, while the additional socioeconomic and spatial data characterize the communities and disaster conditions in which those assistance decisions occurred."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
   }
 ]
