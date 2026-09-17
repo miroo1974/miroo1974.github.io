@@ -1,0 +1,15 @@
+---
+title: "Assignments"
+---
+
+## Course Assignments
+
+-   [Assignment 2](assign02.html)
+-   [Assignment 3](assign03.html)
+-   [Assignment 4](assign04.html)
+-   [Assignment 5](assign05.html)
+-   [Assignment 6](assign06.html)
+-   [Assignment 7](assign07.html)
+-   [Assignment 8](assign08.html)
+-   [Assignment 9](assign09.html)
+-   [Assignment 10](assign10.html)

@@ -1,0 +1,140 @@
+---
+title: "Assignment 3"
+author: "Sunghye Choi"
+---
+## Setup
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidycensus)
+library(tigris)
+library(sf)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readr)
+
+options(tigris_use_cache = TRUE)
+```
+
+## ACS Variables
+
+```{r}
+vars <- load_variables(2024, "acs5")
+
+vars |>
+  dplyr::filter(grepl("^B19", name)) |>
+  dplyr::slice_head(n = 10)
+```
+
+## Data Collection
+
+```{r}
+state_abbr <- "TX"
+geo_level <- "county"
+
+my_vars <- c(
+  income = "B19013_001",
+  pov = "B17001_002",
+  povden = "B17001_001"
+)
+
+year_acs <- 2024
+survey <- "acs5"
+
+acs_wide <- get_acs(
+  geography = geo_level,
+  variables = my_vars,
+  state = state_abbr,
+  year = year_acs,
+  survey = survey,
+  geometry = TRUE,
+  output = "wide"
+)
+```
+## Data Processing
+
+```{r}
+acs_wide <- acs_wide |>
+  mutate(
+    pov_rate = povE / povdenE,
+    pov_moe = moe_prop(povE, povdenE, povM, povdenM)
+  )
+```
+
+## Median Household Income Map
+
+```{r}
+ggplot(acs_wide) +
+  geom_sf(aes(fill = incomeE), color = "white", linewidth = 0.1) +
+  scale_fill_viridis_c(
+    name = "Median Household Income",
+    labels = scales::label_dollar()
+  ) +
+  labs(
+    title = "Median Household Income by Texas County",
+    subtitle = "2020–2024 American Community Survey 5-Year Estimates",
+    caption = "Source: U.S. Census Bureau via tidycensus"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold"),
+    plot.caption = element_text(size = 8),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank()
+  )
+```
+
+## Poverty Rate Rankings
+
+```{r}
+top10 <- acs_wide |>
+  st_drop_geometry() |>
+  arrange(desc(pov_rate)) |>
+  select(NAME, pov_rate, pov_moe) |>
+  slice_head(n = 10) |>
+  mutate(Group = "Highest 10")
+
+bottom10 <- acs_wide |>
+  st_drop_geometry() |>
+  arrange(pov_rate) |>
+  select(NAME, pov_rate, pov_moe) |>
+  slice_head(n = 10) |>
+  mutate(Group = "Lowest 10")
+
+poverty_table <- bind_rows(top10, bottom10) |>
+  mutate(
+    County = sub(", Texas$", "", NAME),
+    `Poverty Rate` = scales::percent(pov_rate, accuracy = 0.1),
+    `Margin of Error` = scales::percent(pov_moe, accuracy = 0.1)
+  ) |>
+  select(Group, County, `Poverty Rate`, `Margin of Error`)
+
+knitr::kable(
+  poverty_table,
+  caption = "Texas Counties with the Highest and Lowest Poverty Rates"
+)
+```
+## Uncertainty Check
+
+Dimmit County has an estimated poverty rate of 41.1% with a margin of error of 8.9 percentage points, producing an approximate 90% confidence interval of 32.2% to 50.0%. Zapata County has an estimated poverty rate of 38.4% with a margin of error of 6.0 percentage points, producing an interval of 32.4% to 44.4%. Because these intervals overlap substantially, the published ranking does not demonstrate that Dimmit County’s true poverty rate is higher than Zapata County’s. The ordering should therefore be interpreted as a ranking of point estimates rather than a definitive difference between the counties.
+
+## Methods Note
+
+This analysis uses the 2024 ACS 5-year estimates for all 254 counties in Texas. County geography was selected because it provides meaningful comparisons across the state while remaining readable on a single map. Median household income (`B19013_001`) is mapped to show the spatial distribution of economic resources. Poverty status (`B17001_002`) and its corresponding universe (`B17001_001`) are used to calculate county poverty rates rather than raw counts, which would largely reflect differences in population size.
+
+The poverty-rate margin of error was calculated with `moe_prop()` using the margins of error for both the numerator and denominator. The estimates show substantial geographic variation, but several counties—particularly those with small populations—have wide margins of error. Therefore, the top and bottom rankings should be interpreted cautiously. Overlapping confidence intervals indicate that small differences in the point estimates do not necessarily represent meaningful differences in the underlying county poverty rates.
+
+## Save Data
+
+```{r}
+write_csv(
+  st_drop_geometry(acs_wide),
+  paste0("acs_", state_abbr, "_", year_acs, ".csv")
+)
+```
+
+

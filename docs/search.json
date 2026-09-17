@@ -75,5 +75,89 @@
     "title": "Assignment 2: Google Trends",
     "section": "Comparison of the Two Methods",
     "text": "Comparison of the Two Methods\nThe website requires the researcher to record query parameters manually, whereas the R object records parameters such as the keyword, geography, time window, search type, and category. R is easier to reproduce and scale to many searches, although large collections require multiple queries and careful normalization. Both methods rely on sampled and rescaled Google Trends data. The website interface can change, while gtrendsR can fail because of rate limits or changes to the service; caching successful pulls helps preserve provenance and detect problems.\nThe R object also contained country, region, DMA, city, related-topic, and related-query data that were absent from the website CSV. Harris and Kamala Harris produced different series because the broader term can represent other people, places, and organizations. Two R pulls conducted approximately ten minutes apart were identical in this instance, but sampled Trends results are not guaranteed to remain identical in future pulls."
+  },
+  {
+    "objectID": "assignments/assign03.html",
+    "href": "assignments/assign03.html",
+    "title": "Assignment 3",
+    "section": "",
+    "text": "library(tidycensus)\nlibrary(tigris)\nlibrary(sf)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(ggplot2)\nlibrary(readr)\n\noptions(tigris_use_cache = TRUE)"
+  },
+  {
+    "objectID": "assignments/assign03.html#setup",
+    "href": "assignments/assign03.html#setup",
+    "title": "Assignment 3",
+    "section": "",
+    "text": "library(tidycensus)\nlibrary(tigris)\nlibrary(sf)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(ggplot2)\nlibrary(readr)\n\noptions(tigris_use_cache = TRUE)"
+  },
+  {
+    "objectID": "assignments/assign03.html#acs-variables",
+    "href": "assignments/assign03.html#acs-variables",
+    "title": "Assignment 3",
+    "section": "ACS Variables",
+    "text": "ACS Variables\n\nvars &lt;- load_variables(2024, \"acs5\")\n\nvars |&gt;\n  dplyr::filter(grepl(\"^B19\", name)) |&gt;\n  dplyr::slice_head(n = 10)\n\n# A tibble: 10 × 4\n   name        label                                concept            geography\n   &lt;chr&gt;       &lt;chr&gt;                                &lt;chr&gt;              &lt;chr&gt;    \n 1 B19001A_001 Estimate!!Total:                     Household Income … tract    \n 2 B19001A_002 Estimate!!Total:!!Less than $10,000  Household Income … tract    \n 3 B19001A_003 Estimate!!Total:!!$10,000 to $14,999 Household Income … tract    \n 4 B19001A_004 Estimate!!Total:!!$15,000 to $19,999 Household Income … tract    \n 5 B19001A_005 Estimate!!Total:!!$20,000 to $24,999 Household Income … tract    \n 6 B19001A_006 Estimate!!Total:!!$25,000 to $29,999 Household Income … tract    \n 7 B19001A_007 Estimate!!Total:!!$30,000 to $34,999 Household Income … tract    \n 8 B19001A_008 Estimate!!Total:!!$35,000 to $39,999 Household Income … tract    \n 9 B19001A_009 Estimate!!Total:!!$40,000 to $44,999 Household Income … tract    \n10 B19001A_010 Estimate!!Total:!!$45,000 to $49,999 Household Income … tract"
+  },
+  {
+    "objectID": "assignments/assign03.html#data-collection",
+    "href": "assignments/assign03.html#data-collection",
+    "title": "Assignment 3",
+    "section": "Data Collection",
+    "text": "Data Collection\n\nstate_abbr &lt;- \"TX\"\ngeo_level &lt;- \"county\"\n\nmy_vars &lt;- c(\n  income = \"B19013_001\",\n  pov = \"B17001_002\",\n  povden = \"B17001_001\"\n)\n\nyear_acs &lt;- 2024\nsurvey &lt;- \"acs5\"\n\nacs_wide &lt;- get_acs(\n  geography = geo_level,\n  variables = my_vars,\n  state = state_abbr,\n  year = year_acs,\n  survey = survey,\n  geometry = TRUE,\n  output = \"wide\"\n)\n\nGetting data from the 2020-2024 5-year ACS"
+  },
+  {
+    "objectID": "assignments/assign03.html#data-processing",
+    "href": "assignments/assign03.html#data-processing",
+    "title": "Assignment 3",
+    "section": "Data Processing",
+    "text": "Data Processing\n\nacs_wide &lt;- acs_wide |&gt;\n  mutate(\n    pov_rate = povE / povdenE,\n    pov_moe = moe_prop(povE, povdenE, povM, povdenM)\n  )"
+  },
+  {
+    "objectID": "assignments/assign03.html#median-household-income-map",
+    "href": "assignments/assign03.html#median-household-income-map",
+    "title": "Assignment 3",
+    "section": "Median Household Income Map",
+    "text": "Median Household Income Map\n\nggplot(acs_wide) +\n  geom_sf(aes(fill = incomeE), color = \"white\", linewidth = 0.1) +\n  scale_fill_viridis_c(\n    name = \"Median Household Income\",\n    labels = scales::label_dollar()\n  ) +\n  labs(\n    title = \"Median Household Income by Texas County\",\n    subtitle = \"2020–2024 American Community Survey 5-Year Estimates\",\n    caption = \"Source: U.S. Census Bureau via tidycensus\"\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 14, face = \"bold\"),\n    plot.caption = element_text(size = 8),\n    axis.text = element_blank(),\n    axis.title = element_blank(),\n    panel.grid = element_blank()\n  )"
+  },
+  {
+    "objectID": "assignments/assign03.html#poverty-rate-rankings",
+    "href": "assignments/assign03.html#poverty-rate-rankings",
+    "title": "Assignment 3",
+    "section": "Poverty Rate Rankings",
+    "text": "Poverty Rate Rankings\n\ntop10 &lt;- acs_wide |&gt;\n  st_drop_geometry() |&gt;\n  arrange(desc(pov_rate)) |&gt;\n  select(NAME, pov_rate, pov_moe) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(Group = \"Highest 10\")\n\nbottom10 &lt;- acs_wide |&gt;\n  st_drop_geometry() |&gt;\n  arrange(pov_rate) |&gt;\n  select(NAME, pov_rate, pov_moe) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(Group = \"Lowest 10\")\n\npoverty_table &lt;- bind_rows(top10, bottom10) |&gt;\n  mutate(\n    County = sub(\", Texas$\", \"\", NAME),\n    `Poverty Rate` = scales::percent(pov_rate, accuracy = 0.1),\n    `Margin of Error` = scales::percent(pov_moe, accuracy = 0.1)\n  ) |&gt;\n  select(Group, County, `Poverty Rate`, `Margin of Error`)\n\nknitr::kable(\n  poverty_table,\n  caption = \"Texas Counties with the Highest and Lowest Poverty Rates\"\n)\n\n\nTexas Counties with the Highest and Lowest Poverty Rates\n\n\nGroup\nCounty\nPoverty Rate\nMargin of Error\n\n\n\n\nHighest 10\nDimmit County\n41.1%\n8.9%\n\n\nHighest 10\nZapata County\n38.4%\n6.0%\n\n\nHighest 10\nZavala County\n33.9%\n9.5%\n\n\nHighest 10\nStarr County\n33.5%\n3.2%\n\n\nHighest 10\nDuval County\n33.3%\n8.4%\n\n\nHighest 10\nPresidio County\n32.0%\n12.8%\n\n\nHighest 10\nEdwards County\n31.9%\n23.2%\n\n\nHighest 10\nJim Hogg County\n31.4%\n11.1%\n\n\nHighest 10\nSwisher County\n30.1%\n6.9%\n\n\nHighest 10\nKleberg County\n28.1%\n4.3%\n\n\nLowest 10\nRockwall County\n4.0%\n0.7%\n\n\nLowest 10\nSterling County\n4.3%\n2.9%\n\n\nLowest 10\nSutton County\n4.5%\n2.9%\n\n\nLowest 10\nKendall County\n5.0%\n1.4%\n\n\nLowest 10\nArmstrong County\n5.2%\n2.8%\n\n\nLowest 10\nFoard County\n5.6%\n4.4%\n\n\nLowest 10\nRoberts County\n5.6%\n3.9%\n\n\nLowest 10\nLoving County\n6.1%\n2.5%\n\n\nLowest 10\nHemphill County\n6.2%\n3.2%\n\n\nLowest 10\nCollin County\n6.2%\n0.4%"
+  },
+  {
+    "objectID": "assignments/assign03.html#uncertainty-check",
+    "href": "assignments/assign03.html#uncertainty-check",
+    "title": "Assignment 3",
+    "section": "Uncertainty Check",
+    "text": "Uncertainty Check\nDimmit County has an estimated poverty rate of 41.1% with a margin of error of 8.9 percentage points, producing an approximate 90% confidence interval of 32.2% to 50.0%. Zapata County has an estimated poverty rate of 38.4% with a margin of error of 6.0 percentage points, producing an interval of 32.4% to 44.4%. Because these intervals overlap substantially, the published ranking does not demonstrate that Dimmit County’s true poverty rate is higher than Zapata County’s. The ordering should therefore be interpreted as a ranking of point estimates rather than a definitive difference between the counties."
+  },
+  {
+    "objectID": "assignments/assign03.html#methods-note",
+    "href": "assignments/assign03.html#methods-note",
+    "title": "Assignment 3",
+    "section": "Methods Note",
+    "text": "Methods Note\nThis analysis uses the 2024 ACS 5-year estimates for all 254 counties in Texas. County geography was selected because it provides meaningful comparisons across the state while remaining readable on a single map. Median household income (B19013_001) is mapped to show the spatial distribution of economic resources. Poverty status (B17001_002) and its corresponding universe (B17001_001) are used to calculate county poverty rates rather than raw counts, which would largely reflect differences in population size.\nThe poverty-rate margin of error was calculated with moe_prop() using the margins of error for both the numerator and denominator. The estimates show substantial geographic variation, but several counties—particularly those with small populations—have wide margins of error. Therefore, the top and bottom rankings should be interpreted cautiously. Overlapping confidence intervals indicate that small differences in the point estimates do not necessarily represent meaningful differences in the underlying county poverty rates."
+  },
+  {
+    "objectID": "assignments/assign03.html#save-data",
+    "href": "assignments/assign03.html#save-data",
+    "title": "Assignment 3",
+    "section": "Save Data",
+    "text": "Save Data\n\nwrite_csv(\n  st_drop_geometry(acs_wide),\n  paste0(\"acs_\", state_abbr, \"_\", year_acs, \".csv\")\n)"
+  },
+  {
+    "objectID": "assignments/index.html",
+    "href": "assignments/index.html",
+    "title": "Assignments",
+    "section": "",
+    "text": "Assignment 2\nAssignment 3\nAssignment 4\nAssignment 5\nAssignment 6\nAssignment 7\nAssignment 8\nAssignment 9\nAssignment 10"
+  },
+  {
+    "objectID": "assignments/index.html#course-assignments",
+    "href": "assignments/index.html#course-assignments",
+    "title": "Assignments",
+    "section": "",
+    "text": "Assignment 2\nAssignment 3\nAssignment 4\nAssignment 5\nAssignment 6\nAssignment 7\nAssignment 8\nAssignment 9\nAssignment 10"
   }
 ]
