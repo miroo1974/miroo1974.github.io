@@ -5,11 +5,11 @@ format: html
 
 ## Query Parameters
 
-**Search terms:** Trump, Kamala Harris, Election  
-**Geography:** United States  
-**Time window:** Past 5 years  
-**Category:** All Categories  
-**Search type:** Web Search  
+**Search terms:** Trump, Kamala Harris, Election\
+**Geography:** United States\
+**Time window:** Past 5 years\
+**Category:** All Categories\
+**Search type:** Web Search\
 **Retrieved:** September 12, 2026, approximately 8:50 PM CDT
 
 ## Results
