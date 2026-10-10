@@ -1,0 +1,42 @@
+---
+title: "Assignment 5: Government Data API"
+format: html
+editor: source
+---
+
+## Data Collection and Comparison
+
+I downloaded ten hearings of the Senate Committee on Foreign Relations using two methods: links from a CSV exported from the GovInfo search page and results obtained through the GovInfo API. On the website, I searched for `Senate Committee on Foreign Relations hearings`, applied the Senate Foreign Relations Committee filter, and sorted the results newest first.
+
+The initial API query, `collection:(CHRG) AND "Committee on Foreign Relations"`, produced a different list: only six of the ten documents matched the website results. Changing the keywords alone did not resolve the difference. I then used `collection:CHRG AND chamber:senate AND committee:"Foreign Relations"` and sorted by publication date in descending order. The revised API results matched all ten website document IDs in the same order. Both methods successfully downloaded all ten PDFs, and I saved separate download logs.
+
+## Difficulties Encountered
+
+First, the example CSV code used `skip = 2`, which skipped the header and the first document in my export. As a result, a document row was incorrectly treated as column names. Removing this argument fixed the problem.
+
+Second, the initial API downloads failed because the PDF requests did not include the API key. Adding the key to each download request resolved the failures. The code retrieved the key from the environment rather than including it directly in the script.
+
+Finally, the initial search mismatch showed that a phrase appearing in document text is not equivalent to filtering by committee metadata. Explicitly specifying the collection, chamber, and committee produced the intended results.
+
+## Usability of the Documents as Data
+
+I used `pdftools::pdf_text()` to test text extraction from all ten PDFs. The documents ranged from 31 to 63 pages, and text was extracted from every document. Each PDF contained one page with no extracted text; I did not verify whether these were genuinely blank pages. The extraction also produced repeated ligature-parsing error messages. The first document’s cover and a middle-page sample were readable, but this limited inspection does not establish that all extracted text is accurate.
+
+To create a document-level table, I could use one row per hearing and columns for its document ID, title, date, page count, and download status. Creating a table of speakers and statements would require additional parsing of the transcript.
+
+To create a corpus, the extracted text would need cleaning. The sample retained page numbers, extra spaces, line breaks, and words split across lines, such as `engage-` followed by `ments`. I would remove repeated headers and page numbers, normalize whitespace, and carefully reconnect words broken at line endings. Document IDs and page references should be retained, and a speaker-level corpus would also require identifying speaker labels and separating their statements.
+
+## Improvements to the Process
+
+I would use explicit metadata filters from the beginning and compare document IDs before downloading. I would also read the export’s header before applying any row-skipping settings and include authentication in every API download request.
+
+For text analysis, I would test the available HTML/text versions and compare samples with the PDFs to determine whether they reduce extraction problems. Metadata provides document IDs, titles, dates, and download links without opening each PDF, allowing a document inventory to be created before processing the transcripts. Download logs should record successes and failures so unsuccessful requests can be identified and retried.
+
+## What the API Added
+
+The API allowed me to express the search, filters, and sorting in code and repeat the collection process without manually exporting a new results list. Compared with scraping webpage markup, it returned structured metadata and download links without requiring me to parse the webpage layout.
+
+## Download Logs
+
+-   [CSV download log](govinfo_csv_download_log.csv)
+-   [API download log](govinfo_api_final_download_log.csv)

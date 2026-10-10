@@ -159,5 +159,54 @@
     "title": "Assignments",
     "section": "",
     "text": "Assignment 2\nAssignment 3\nAssignment 4\nAssignment 5\nAssignment 6\nAssignment 7\nAssignment 8\nAssignment 9\nAssignment 10"
+  },
+  {
+    "objectID": "assignments/assign05.html",
+    "href": "assignments/assign05.html",
+    "title": "Assignment 5: Government Data API",
+    "section": "",
+    "text": "I downloaded ten hearings of the Senate Committee on Foreign Relations using two methods: links from a CSV exported from the GovInfo search page and results obtained through the GovInfo API. On the website, I searched for Senate Committee on Foreign Relations hearings, applied the Senate Foreign Relations Committee filter, and sorted the results newest first.\nThe initial API query, collection:(CHRG) AND \"Committee on Foreign Relations\", produced a different list: only six of the ten documents matched the website results. Changing the keywords alone did not resolve the difference. I then used collection:CHRG AND chamber:senate AND committee:\"Foreign Relations\" and sorted by publication date in descending order. The revised API results matched all ten website document IDs in the same order. Both methods successfully downloaded all ten PDFs, and I saved separate download logs."
+  },
+  {
+    "objectID": "assignments/assign05.html#data-collection-and-comparison",
+    "href": "assignments/assign05.html#data-collection-and-comparison",
+    "title": "Assignment 5: Government Data API",
+    "section": "",
+    "text": "I downloaded ten hearings of the Senate Committee on Foreign Relations using two methods: links from a CSV exported from the GovInfo search page and results obtained through the GovInfo API. On the website, I searched for Senate Committee on Foreign Relations hearings, applied the Senate Foreign Relations Committee filter, and sorted the results newest first.\nThe initial API query, collection:(CHRG) AND \"Committee on Foreign Relations\", produced a different list: only six of the ten documents matched the website results. Changing the keywords alone did not resolve the difference. I then used collection:CHRG AND chamber:senate AND committee:\"Foreign Relations\" and sorted by publication date in descending order. The revised API results matched all ten website document IDs in the same order. Both methods successfully downloaded all ten PDFs, and I saved separate download logs."
+  },
+  {
+    "objectID": "assignments/assign05.html#difficulties-encountered",
+    "href": "assignments/assign05.html#difficulties-encountered",
+    "title": "Assignment 5: Government Data API",
+    "section": "Difficulties Encountered",
+    "text": "Difficulties Encountered\nFirst, the example CSV code used skip = 2, which skipped the header and the first document in my export. As a result, a document row was incorrectly treated as column names. Removing this argument fixed the problem.\nSecond, the initial API downloads failed because the PDF requests did not include the API key. Adding the key to each download request resolved the failures. The code retrieved the key from the environment rather than including it directly in the script.\nFinally, the initial search mismatch showed that a phrase appearing in document text is not equivalent to filtering by committee metadata. Explicitly specifying the collection, chamber, and committee produced the intended results."
+  },
+  {
+    "objectID": "assignments/assign05.html#usability-of-the-documents-as-data",
+    "href": "assignments/assign05.html#usability-of-the-documents-as-data",
+    "title": "Assignment 5: Government Data API",
+    "section": "Usability of the Documents as Data",
+    "text": "Usability of the Documents as Data\nI used pdftools::pdf_text() to test text extraction from all ten PDFs. The documents ranged from 31 to 63 pages, and text was extracted from every document. Each PDF contained one page with no extracted text; I did not verify whether these were genuinely blank pages. The extraction also produced repeated ligature-parsing error messages. The first document’s cover and a middle-page sample were readable, but this limited inspection does not establish that all extracted text is accurate.\nTo create a document-level table, I could use one row per hearing and columns for its document ID, title, date, page count, and download status. Creating a table of speakers and statements would require additional parsing of the transcript.\nTo create a corpus, the extracted text would need cleaning. The sample retained page numbers, extra spaces, line breaks, and words split across lines, such as engage- followed by ments. I would remove repeated headers and page numbers, normalize whitespace, and carefully reconnect words broken at line endings. Document IDs and page references should be retained, and a speaker-level corpus would also require identifying speaker labels and separating their statements."
+  },
+  {
+    "objectID": "assignments/assign05.html#improvements-to-the-process",
+    "href": "assignments/assign05.html#improvements-to-the-process",
+    "title": "Assignment 5: Government Data API",
+    "section": "Improvements to the Process",
+    "text": "Improvements to the Process\nI would use explicit metadata filters from the beginning and compare document IDs before downloading. I would also read the export’s header before applying any row-skipping settings and include authentication in every API download request.\nFor text analysis, I would test the available HTML/text versions and compare samples with the PDFs to determine whether they reduce extraction problems. Metadata provides document IDs, titles, dates, and download links without opening each PDF, allowing a document inventory to be created before processing the transcripts. Download logs should record successes and failures so unsuccessful requests can be identified and retried."
+  },
+  {
+    "objectID": "assignments/assign05.html#what-the-api-added",
+    "href": "assignments/assign05.html#what-the-api-added",
+    "title": "Assignment 5: Government Data API",
+    "section": "What the API Added",
+    "text": "What the API Added\nThe API allowed me to express the search, filters, and sorting in code and repeat the collection process without manually exporting a new results list. Compared with scraping webpage markup, it returned structured metadata and download links without requiring me to parse the webpage layout."
+  },
+  {
+    "objectID": "assignments/assign05.html#download-logs",
+    "href": "assignments/assign05.html#download-logs",
+    "title": "Assignment 5: Government Data API",
+    "section": "Download Logs",
+    "text": "Download Logs\n\nCSV download log\nAPI download log"
   }
 ]
