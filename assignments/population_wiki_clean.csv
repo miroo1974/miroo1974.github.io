@@ -1,0 +1,240 @@
+country,population,date_original,source,reported_date,reported_year,date_precision
+India,1429404000,1 Jul 2026,Official projection,2026-07-01,2026,full date
+China,1404890000,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+United States,341784857,1 Jul 2025,Official estimate,2025-07-01,2025,full date
+Indonesia,288315089,31 Dec 2025,National annual projection,2025-12-31,2025,full date
+Pakistan,241499431,1 Mar 2023,2023 census result,2023-03-01,2023,full date
+Nigeria,223800000,1 Jul 2023,Official projection,2023-07-01,2023,full date
+Brazil,214211951,1 Jul 2026,Official estimate,2026-07-01,2026,full date
+Bangladesh,169828911,14 Jun 2022,2022 census result,2022-06-14,2022,full date
+Russia,146028325,1 Jan 2025,Official estimate,2025-01-01,2025,full date
+Mexico,131231919,30 Jun 2026,National quarterly estimate,2026-06-30,2026,full date
+Japan,122650000,1 Sep 2026,Monthly national estimate,2026-09-01,2026,full date
+Democratic Republic of the Congo,116452162,1 Jul 2026,UN projection,2026-07-01,2026,full date
+Philippines,114849400,1 Jul 2026,Official projection,2026-07-01,2026,full date
+Ethiopia,111652998,1 Jul 2025,National annual projection,2025-07-01,2025,full date
+Egypt,108613296,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Vietnam,102300000,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Iran,87134000,21 Mar 2026,Official estimate,2026-03-21,2026,full date
+Turkey,86092168,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Germany,83298787,30 Jun 2026,National quarterly estimate,2026-06-30,2026,full date
+Thailand,70250751,2025,Preliminary census results,NA,2025,year only
+Tanzania,70038850,1 Jul 2026,Official projection,2026-07-01,2026,full date
+United Kingdom,69487000,30 Jun 2025,Official estimate,2025-06-30,2025,full date
+France,69081996,1 Jan 2026,Yearly national estimate,2026-01-01,2026,full date
+South Africa,63522380,30 Jun 2026,Official estimate,2026-06-30,2026,full date
+Italy,58943673,30 Jun 2026,Monthly national estimate,2026-06-30,2026,full date
+Kenya,54227015,1 Jul 2026,Official projection,2026-07-01,2026,full date
+Colombia,53399171,1 Jan 2026,Official projection,2026-01-01,2026,full date
+Sudan,53282719,1 Jul 2026,UN projection,2026-07-01,2026,full date
+Myanmar,51375327,15 Oct 2024,2024 census result,2024-10-15,2024,full date
+South Korea,51088284,31 Jul 2026,Monthly national estimate,2026-07-31,2026,full date
+Spain,49801559,1 Jul 2026,National quarterly estimate,2026-07-01,2026,full date
+Algeria,47400000,1 Jan 2025,National annual projection,2025-01-01,2025,full date
+Argentina,46466688,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Iraq,46118793,21 Nov 2024,2024 census result,2024-11-21,2024,full date
+Uganda,45905417,10 May 2024,2024 census result,2024-05-10,2024,full date
+Afghanistan,43844000,1 Jul 2025,UN projection (see note),2025-07-01,2025,full date
+Canada,41798407,1 Jul 2026,National quarterly estimate,2026-07-01,2026,full date
+Uzbekistan,39047321,15 Jan 2026,2026 census result,2026-01-15,2026,full date
+Angola,38778554,1 Jan 2026,National estimate,2026-01-01,2026,full date
+Morocco,37254695,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Poland,37232000,31 Jul 2026,Monthly national estimate,2026-07-31,2026,full date
+Saudi Arabia,35300280,1 Jul 2024,Official estimate,2024-07-01,2024,full date
+Mozambique,34958973,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Malaysia,34389400,30 Jun 2026,National quarterly estimate,2026-06-30,2026,full date
+Ghana,34378768,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Peru,34157732,4 Aug 2025,Census 2025,2025-08-04,2025,full date
+Ivory Coast,33293101,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Yemen,32684503,1 Jul 2023,Official estimate,2023-07-01,2023,full date
+Madagascar,32658977,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Nepal,30034040,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Cameroon,29442327,1 Jul 2025,National annual projection,2025-07-01,2025,full date
+Ukraine,28700000,1 Sep 2025,State migration service,2025-09-01,2025,full date
+Venezuela,28633711,1 Jul 2026,UN projection,2026-07-01,2026,full date
+Australia,27921150,31 Mar 2026,Official projection,2026-03-31,2026,full date
+Niger,27522750,1 Jul 2025,National annual projection,2025-07-01,2025,full date
+Syria,26472497,1 Jul 2026,Monthly estimate,2026-07-01,2026,full date
+North Korea,25950000,1 Jul 2024,National annual projection,2024-07-01,2024,full date
+Burkina Faso,24736828,1 Jul 2026,Official projection,2026-07-01,2026,full date
+Mali,23929000,1 Jul 2024,Official projection,2024-07-01,2024,full date
+Taiwan,23224721,31 Aug 2026,Official estimate,2026-08-31,2026,full date
+Zambia,23003214,1 Jul 2026,Official estimate,2026-07-01,2026,full date
+Sri Lanka,21778000,1 Jul 2026,Official estimate,2026-07-01,2026,full date
+Malawi,21201635,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Kazakhstan,20618796,1 Sep 2026,Official estimate,2026-09-01,2026,full date
+Somalia,20305907,1 Jul 2026,UN projection,2026-07-01,2026,full date
+Chile,20150948,30 Jun 2026,National annual projection,2026-06-30,2026,full date
+Chad,20031602,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Senegal,19575061,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Romania,19041322,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Guatemala,18312373,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Ecuador,18243816,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Netherlands,18171612,31 Aug 2026,Official estimate,2026-08-31,2026,full date
+Cambodia,17816143,1 Jul 2026,Official projection,2026-07-01,2026,full date
+Guinea,17521167,1 Jul 2025,Census July 2025,2025-07-01,2025,full date
+Zimbabwe,16175966,1 Jul 2026,Official projection,2026-07-01,2026,full date
+South Sudan,15786898,1 Jul 2025,National annual projection,2025-07-01,2025,full date
+Rwanda,14418145,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Benin,13551992,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Burundi,12332788,16 Aug 2024,Preliminary census result,2024-08-16,2024,full date
+Tunisia,11992843,1 Jan 2026,National estimate,2026-01-01,2026,full date
+Belgium,11942772,1 Jul 2026,Official estimate,2026-07-01,2026,full date
+Jordan,11937000,31 Dec 2025,National estimate,2025-12-31,2025,full date
+Haiti,11867032,1 Jul 2024,National annual projection,2024-07-01,2024,full date
+Portugal,11424031,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Bolivia,11365333,23 Mar 2024,2024 census result,2024-03-23,2024,full date
+United Arab Emirates,11294243,31 Dec 2024,Official estimate,2024-12-31,2024,full date
+Czech Republic,10903655,30 Jun 2026,Official estimate,2026-06-30,2026,full date
+Dominican Republic,10771504,10 Nov 2022,2022 census result,2022-11-10,2022,full date
+Tajikistan,10721000,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Sweden,10621103,31 Aug 2026,Monthly national estimate,2026-08-31,2026,full date
+Greece,10372335,1 Jan 2025,Official estimate,2025-01-01,2025,full date
+Israel,10305000,31 Aug 2026,Monthly national estimate,2026-08-31,2026,full date
+Azerbaijan,10273450,1 Jul 2026,Monthly national estimate,2026-07-01,2026,full date
+Honduras,10186738,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Papua New Guinea,10185363,16 Jun 2024,2024 census result,2024-06-16,2024,full date
+Hungary,9488428,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Cuba,9434593,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Sierra Leone,9270700,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Austria,9217573,1 Jul 2026,National quarterly estimate,2026-07-01,2026,full date
+Switzerland,9154896,30 Jun 2026,National quarterly estimate,2026-06-30,2026,full date
+Belarus,9056080,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Togo,8095498,8 Nov 2022,2022 census result,2022-11-08,2022,full date
+Laos,7745000,1 Jul 2025,National annual projection,2025-07-01,2025,full date
+Libya,7539852,1 Jul 2026,UN projection,2026-07-01,2026,full date
+Hong Kong (China),7518300,30 Jun 2026,National estimate,2026-06-30,2026,full date
+Kyrgyzstan,7404300,1 Jan 2026,Monthly national estimate,2026-01-01,2026,full date
+Turkmenistan,7057841,17 Dec 2022,2022 census result,2022-12-17,2022,full date
+Nicaragua,6874748,30 Jun 2024,Official estimate,2024-06-30,2024,full date
+Serbia,6532019,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Central African Republic,6470307,1 Jul 2024,National annual projection,2024-07-01,2024,full date
+Bulgaria,6423207,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Singapore,6208500,30 Jun 2026,National annual projection,2026-06-30,2026,full date
+Republic of the Congo,6142180,17 May 2023,2023 census result,2023-05-17,2023,full date
+Paraguay,6109644,9 Nov 2022,2022 census result,2022-11-09,2022,full date
+Denmark,6038638,1 Sep 2026,Monthly national estimate,2026-09-01,2026,full date
+El Salvador,6029976,2 May 2024,2024 census result,2024-05-02,2024,full date
+Lebanon,5895466,2026,Official estimate,NA,2026,year only
+Finland,5659324,31 Aug 2026,Monthly national estimate,2026-08-31,2026,full date
+Norway,5636904,30 Jun 2026,National quarterly estimate,2026-06-30,2026,full date
+Palestine,5557096,31 Dec 2025,National annual projection,2025-12-31,2025,full date
+Ireland,5525600,1 Apr 2026,National estimate,2026-04-01,2026,full date
+Slovakia,5403009,30 Jun 2026,National quarterly estimate,2026-06-30,2026,full date
+Oman,5398645,30 Jun 2026,Monthly national estimate,2026-06-30,2026,full date
+New Zealand,5357300,30 Jun 2026,National quarterly estimate,2026-06-30,2026,full date
+Liberia,5248621,10 Nov 2022,2022 census result,2022-11-10,2022,full date
+Costa Rica,5217296,30 Jun 2026,National annual projection,2026-06-30,2026,full date
+Mauritania,4927532,25 Dec 2023,2023 census result,2023-12-25,2023,full date
+Kuwait,4881254,1 Jan 2025,Official estimate,2025-01-01,2025,full date
+Panama,4064780,1 Jul 2026,2023 census result,2026-07-01,2026,full date
+Georgia,3941100,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Croatia,3874993,1 Jul 2025,Official estimate,2025-07-01,2025,full date
+Eritrea,3682669,1 Jul 2026,UN projection (see note),2026-07-01,2026,full date
+Mongolia,3591120,31 Dec 2025,National annual projection,2025-12-31,2025,full date
+Uruguay,3480601,30 Jun 2026,National annual projection,2026-06-30,2026,full date
+Bosnia and Herzegovina,3412000,1 Jul 2024,Official estimate,2024-07-01,2024,full date
+Qatar,3370611,31 Mar 2026,Monthly national estimate,2026-03-31,2026,full date
+Puerto Rico (US),3184835,1 Jul 2025,Annual projection,2025-07-01,2025,full date
+Armenia,3103900,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Namibia,3022401,24 Sep 2023,2023 Census,2023-09-24,2023,full date
+Lithuania,2887761,1 Sep 2026,Monthly national estimate,2026-09-01,2026,full date
+Jamaica,2774538,12 Sep 2022,2022 census result,2022-09-12,2022,full date
+Botswana,2515633,1 Jul 2026,Official estimate,2026-07-01,2026,full date
+Gabon,2469296,1 Jul 2025,National annual projection,2025-07-01,2025,full date
+Gambia,2422712,1 May 2024,Preliminary census results,2024-05-01,2024,full date
+Moldova,2365600,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Albania,2335930,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Slovenia,2136385,1 Apr 2026,National quarterly estimate,2026-04-01,2026,full date
+Lesotho,2116427,2024,Official survey,NA,2024,year only
+Guinea-Bissau,1890252,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Latvia,1832100,1 Jul 2026,Monthly national estimate,2026-07-01,2026,full date
+North Macedonia,1819074,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Equatorial Guinea,1668768,1 Jul 2024,Official estimate,2024-07-01,2024,full date
+Bahrain,1603260,30 Jun 2025,Official estimate,2025-06-30,2025,full date
+Kosovo,1582322,31 Dec 2025,2024 national census,2025-12-31,2025,full date
+Timor-Leste,1409452,1 Jul 2026,National annual projection,2026-07-01,2026,full date
+Trinidad and Tobago,1367764,30 Jun 2025,Official estimate,2025-06-30,2025,full date
+Estonia,1360745,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Mauritius,1240316,30 Jun 2026,National estimate,2026-06-30,2026,full date
+Eswatini,1235549,1 Jul 2024,Official projection,2024-07-01,2024,full date
+Djibouti,1066809,20 May 2024,2024 census result,2024-05-20,2024,full date
+Cyprus,983000,31 Dec 2024,Official estimate,2024-12-31,2024,full date
+Guyana,956044,31 Dec 2024,Official estimate,2024-12-31,2024,full date
+Comoros,944388,2026,Official estimate,NA,2026,year only
+Fiji,902623,1 Jan 2026,National annual projection,2026-01-01,2026,full date
+Bhutan,790718,2026,National annual projection,NA,2026,year only
+Solomon Islands,750325,1 Jul 2024,National annual projection,2024-07-01,2024,full date
+Luxembourg,690959,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Macau (China),686500,30 Jun 2026,National quarterly estimate,2026-06-30,2026,full date
+Montenegro,622902,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Suriname,616500,1 Jul 2021,Official estimate,2021-07-01,2021,full date
+Western Sahara (disputed),610813,1 Jul 2026,UN projection,2026-07-01,2026,full date
+Malta,588254,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Maldives,515132,13 Sep 2022,2022 census result,2022-09-13,2022,full date
+Cape Verde,491233,16 Jun 2021,2021 census result,2021-06-16,2021,full date
+Northern Cyprus,476214,31 Dec 2023,Official projection,2023-12-31,2023,full date
+Brunei,458600,1 Jul 2025,Official estimate,2025-07-01,2025,full date
+Belize,418982,1 Jul 2026,Official estimate,2026-07-01,2026,full date
+Bahamas,398165,4 Apr 2022,2022 census result,2022-04-04,2022,full date
+Iceland,396500,1 Jul 2026,National quarterly estimate,2026-07-01,2026,full date
+Transnistria,367776,31 Mar 2024,Official estimate,2024-03-31,2024,full date
+Vanuatu,321409,1 Jul 2024,National annual projection,2024-07-01,2024,full date
+French Polynesia (France),279500,31 Dec 2024,National annual projection,2024-12-31,2024,full date
+New Caledonia (France),264596,1 Jan 2025,National annual projection,2025-01-01,2025,full date
+Barbados,261692,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Abkhazia,244236,1 Jan 2022,Official estimate,2022-01-01,2022,full date
+São Tomé and Príncipe,209607,2024,Preliminary census result,NA,2024,year only
+Samoa,205557,6 Nov 2021,2021 Census,2021-11-06,2021,full date
+Saint Lucia,184100,1 Jul 2023,Official estimate,2023-07-01,2023,full date
+Curaçao (Netherlands),158006,1 Jan 2026,Official estimate,2026-01-01,2026,full date
+Guam (US),153836,1 Apr 2020,2020 census result,2020-04-01,2020,full date
+Seychelles,123565,30 Jun 2026,Official estimate,2026-06-30,2026,full date
+Kiribati,120740,1 Jul 2021,National annual projection,2021-07-01,2021,full date
+Aruba (Netherlands),110625,31 Dec 2025,Official estimate,2025-12-31,2025,full date
+Saint Vincent and the Grenadines,109296,15 Jun 2023,2023 census result,2023-06-15,2023,full date
+Grenada,109021,2021,Preliminary Census results,NA,2021,year only
+Jersey (UK),104540,31 Dec 2024,2021 census result,2024-12-31,2024,full date
+Antigua and Barbuda,103603,1 Jan 2024,Official estimate,2024-01-01,2024,full date
+Tonga,100179,30 Nov 2021,2021 census result,2021-11-30,2021,full date
+Andorra,90105,31 Aug 2026,Monthly national estimate,2026-08-31,2026,full date
+Cayman Islands (UK),88833,31 Dec 2024,National annual projection,2024-12-31,2024,full date
+U.S. Virgin Islands (US),87146,1 Apr 2020,2020 census result,2020-04-01,2020,full date
+Isle of Man (UK),84975,1 Apr 2025,Official estimate,2025-04-01,2025,full date
+Micronesia,75817,12 Feb 2023,2023 Census,2023-02-12,2023,full date
+Dominica,65431,2026,Official estimate,NA,2026,year only
+Guernsey (UK),64781,31 Dec 2023,National quarterly estimate,2023-12-31,2023,full date
+Bermuda (UK),64055,1 Jul 2021,National annual projection,2021-07-01,2021,full date
+Greenland (Denmark),56945,1 Jul 2026,National quarterly estimate,2026-07-01,2026,full date
+South Ossetia,56520,31 Dec 2021,Official estimate,2021-12-31,2021,full date
+Faroe Islands (Denmark),55726,1 Aug 2026,Monthly national estimate,2026-08-01,2026,full date
+Turks and Caicos Islands (UK),52299,1 Jul 2025,Official estimate,2025-07-01,2025,full date
+Saint Kitts and Nevis,51320,2022,2022 census result,NA,2022,year only
+American Samoa (US),49710,1 Apr 2020,2020 census result,2020-04-01,2020,full date
+Northern Mariana Islands (US),47329,1 Apr 2020,2020 census result,2020-04-01,2020,full date
+Marshall Islands,42418,30 Sep 2021,2021 Census,2021-09-30,2021,full date
+Sint Maarten (Netherlands),41349,1 Jan 2025,Official estimate,2025-01-01,2025,full date
+Liechtenstein,41228,31 Dec 2025,National estimate,2025-12-31,2025,full date
+British Virgin Islands (UK),39471,1 Jul 2024,UN projection,2024-07-01,2024,full date
+Monaco,38857,31 Dec 2025,Census,2025-12-31,2025,full date
+Gibraltar (UK),38196,14 Nov 2022,Preliminary census results,2022-11-14,2022,full date
+San Marino,34167,30 Jun 2026,Monthly national estimate,2026-06-30,2026,full date
+Saint Martin (France),31496,1 Jan 2025,Official estimate,2025-01-01,2025,full date
+Palau,16733,1 Jul 2021,2021 Census,2021-07-01,2021,full date
+Anguilla (UK),16010,31 Dec 2024,Official estimate,2024-12-31,2024,full date
+Cook Islands (New Zealand),15040,1 Jul 2021,2021 Census,2021-07-01,2021,full date
+Nauru,11680,30 Oct 2021,2021 Census,2021-10-30,2021,full date
+Wallis and Futuna (France),11620,24 Jul 2023,2023 Census,2023-07-24,2023,full date
+Tuvalu,10643,12 Dec 2022,2022 Census,2022-12-12,2022,full date
+Saint Barthélemy (France),10562,1 Jan 2025,Official estimate,2025-01-01,2025,full date
+Saint Pierre and Miquelon (France),5819,1 Jan 2025,Official estimate,2025-01-01,2025,full date
+"Saint Helena, Ascension and Tristan da Cunha (UK)",5651,1 Jul 2021,2021 Census,2021-07-01,2021,full date
+Montserrat (UK),4386,23 Sep 2023,2023 census result,2023-09-23,2023,full date
+Falkland Islands (UK),3662,10 Oct 2021,2021 census result,2021-10-10,2021,full date
+Tokelau (New Zealand),2608,1 Jan 2025,2025 Census,2025-01-01,2025,full date
+Norfolk Island (Australia),2188,1 Jan 2021,2021 Census,2021-01-01,2021,full date
+Christmas Island (Australia),1692,1 Jan 2021,2021 Census,2021-01-01,2021,full date
+Niue (New Zealand),1681,11 Nov 2022,2022 Census,2022-11-11,2022,full date
+Vatican City,882,31 Dec 2024,Official figure,2024-12-31,2024,full date
+Cocos (Keeling) Islands (Australia),593,30 Jun 2020,2021 Census,2020-06-30,2020,full date
+Pitcairn Islands (UK),35,2023,Official estimate,NA,2023,year only

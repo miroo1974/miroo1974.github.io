@@ -1,0 +1,337 @@
+---
+title: "Assignment 4: Web Scraping and Data Acquisition Plan"
+author: "Sunghye Choi"
+format:
+  html:
+    toc: true
+    code-fold: true
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library(rvest)
+library(dplyr)
+library(stringr)
+library(readr)
+library(knitr)
+
+books <- read_csv("books_5pages.csv", show_col_types = FALSE)
+reserves <- read_csv("reserves_wiki_clean.csv", show_col_types = FALSE)
+population <- read_csv("population_wiki_clean.csv", show_col_types = FALSE)
+comparison <- read_csv("reserves_comparison.csv", show_col_types = FALSE)
+```
+
+## Permission check
+
+Before making the first page request, I checked each exact path with `robotstxt::paths_allowed()`. The function returned `TRUE` for the Books to Scrape pages and both Wikipedia pages. The Books to Scrape check also produced warnings from the package's request handlers, so I did not treat that result alone as evidence about the site's policy. I proceeded because Books to Scrape is explicitly provided as a scraping sandbox. I also inserted a one-second pause between its page requests.
+
+```{r}
+#| eval: false
+library(robotstxt)
+
+book_urls <- paste0(
+  "https://books.toscrape.com/catalogue/page-", 1:5, ".html"
+)
+
+sapply(book_urls, paths_allowed)
+
+paths_allowed(
+  "https://en.wikipedia.org/wiki/List_of_countries_by_foreign-exchange_reserves"
+)
+
+paths_allowed(
+  "https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population"
+)
+```
+
+## 1. Books to Scrape
+
+I extracted each book's title, displayed price, and rating from the first five catalog pages. I also converted the price to a numeric variable while retaining the original text. The five pages produced 100 records, with 20 books per page and no missing values in the requested fields.
+
+```{r}
+#| eval: false
+scrape_books <- function(page_number) {
+  url <- paste0(
+    "https://books.toscrape.com/catalogue/page-",
+    page_number,
+    ".html"
+  )
+
+  page <- read_html(url)
+
+  result <- tibble(
+    page = page_number,
+    title = page |>
+      html_elements("article.product_pod h3 a") |>
+      html_attr("title"),
+    price = page |>
+      html_elements("article.product_pod p.price_color") |>
+      html_text2(),
+    rating = page |>
+      html_elements("article.product_pod p.star-rating") |>
+      html_attr("class") |>
+      str_remove("star-rating ")
+  ) |>
+    mutate(price_gbp = parse_number(price))
+
+  Sys.sleep(1)
+  result
+}
+
+books <- bind_rows(lapply(1:5, scrape_books))
+```
+
+```{r}
+#| label: books-summary
+books |>
+  count(page, name = "number_of_books") |>
+  kable(caption = "Books collected from each page")
+
+books |>
+  select(page, title, price_gbp, rating) |>
+  slice_head(n = 6) |>
+  kable(
+    digits = 2,
+    col.names = c("Page", "Title", "Price (GBP)", "Rating"),
+    caption = "Sample of the scraped book data"
+  )
+```
+
+## 2. Wikipedia tables
+
+### Foreign-exchange reserves
+
+I first inspected all tables with the `wikitable` class instead of assuming that the first table had the needed structure. The page contained two candidate tables. The first was the country-level reserves table, with 198 rows and 8 columns before cleaning.
+
+The table required more cleaning than its displayed appearance suggested. The first two rows were a multi-row header, and four columns shared the same name. I assigned meaningful column names, removed the two header rows, and selected the *including gold, US$ million* column. I then removed reference markers, normalized nonbreaking and thin spaces, excluded any Total or World row, and converted the reserve amount to a number. Dates appeared with both full and abbreviated month names, so I extracted the day, month, and year rather than relying on one date format. The final file contains 196 countries or areas. Albania's source value was `31 Apr 2024`, which is not a valid date, so I retained the original text and left the parsed date missing rather than changing it.
+
+```{r}
+#| eval: false
+wiki_url <- paste0(
+  "https://en.wikipedia.org/wiki/",
+  "List_of_countries_by_foreign-exchange_reserves"
+)
+
+wiki_page <- read_html(wiki_url)
+tables <- wiki_page |> html_elements("table.wikitable")
+
+lapply(tables |> html_table(), dim)
+reserves_raw <- tables[[1]] |> html_table()
+
+names(reserves_raw) <- c(
+  "country", "continent", "reserve_1", "reserve_2",
+  "reserve_3", "reserve_4", "date", "reference"
+)
+
+reserves <- reserves_raw |>
+  slice(-(1:2)) |>
+  mutate(
+    across(
+      where(is.character),
+      ~ .x |>
+        str_remove_all("\\[.*?\\]") |>
+        str_replace_all("[\\u00A0\\u2009\\u202F]", " ") |>
+        str_squish()
+    )
+  ) |>
+  filter(!str_detect(country, regex("total|world", ignore_case = TRUE))) |>
+  transmute(
+    country,
+    continent,
+    reserves_million_usd = parse_number(str_remove_all(reserve_1, " ")),
+    date_original = date
+  )
+
+parse_wiki_date <- function(x) {
+  parts <- str_match(
+    x,
+    "^(\\d{1,2})\\s+([[:alpha:]]+)\\s+(\\d{4})$"
+  )
+  month_number <- match(
+    str_to_title(str_sub(parts[, 3], 1, 3)),
+    month.abb
+  )
+  parse_date(
+    sprintf(
+      "%s-%02d-%02d",
+      parts[, 4], month_number, as.integer(parts[, 2])
+    )
+  )
+}
+
+reserves <- reserves |>
+  mutate(reported_date = parse_wiki_date(date_original))
+```
+
+```{r}
+#| label: reserves-summary
+tibble(
+  records = nrow(reserves),
+  missing_amounts = sum(is.na(reserves$reserves_million_usd)),
+  unparsed_dates = sum(is.na(reserves$reported_date))
+) |>
+  kable(caption = "Cleaned foreign-exchange reserves data")
+
+reserves |>
+  select(country, continent, reserves_million_usd, reported_date) |>
+  slice_head(n = 6) |>
+  kable(
+    format.args = list(big.mark = ","),
+    col.names = c("Country", "Continent", "Reserves (US$ millions)", "Reported date"),
+    caption = "Sample of the cleaned reserves table"
+  )
+```
+
+### A different target: population
+
+For the second target, I used Wikipedia's table of countries and dependencies by population. The raw table contained 240 rows and 6 columns. Changing the target showed why a Wikipedia scraper cannot assume a stable schema. This table had different column names, only one candidate table, and no extra header rows. Its World row was an actual summary record rather than part of a multi-row header. It also mixed complete dates with year-only values. Therefore, the column-renaming, row-removal, and date-parsing rules from the reserves table could not be reused without modification.
+
+After removing the World row, footnote markers, and unnecessary columns, I converted population to a number and preserved the original date text. For 229 rows, a complete date could be parsed. Ten rows reported only a year; I recorded the year and labeled the precision as `year only` instead of inventing a month and day. The cleaned table contains 239 rows and no missing population or reported-year values.
+
+```{r}
+#| eval: false
+population_url <- paste0(
+  "https://en.wikipedia.org/wiki/",
+  "List_of_countries_and_dependencies_by_population"
+)
+
+population_raw <- population_url |>
+  read_html() |>
+  html_elements("table.wikitable") |>
+  html_table() |>
+  .[[1]]
+
+names(population_raw) <- c(
+  "country", "population", "world_share",
+  "date", "source", "notes"
+)
+
+population <- population_raw |>
+  mutate(
+    across(
+      where(is.character),
+      ~ .x |>
+        str_remove_all("\\[.*?\\]") |>
+        str_replace_all("[\\u00A0\\u2009\\u202F]", " ") |>
+        str_squish()
+    )
+  ) |>
+  filter(country != "World") |>
+  transmute(
+    country,
+    population = parse_number(str_remove_all(population, " ")),
+    date_original = date,
+    source
+  ) |>
+  mutate(
+    reported_year = parse_integer(str_extract(date_original, "\\d{4}$")),
+    reported_date = if_else(
+      str_detect(date_original, "^\\d{4}$"),
+      as.Date(NA),
+      parse_wiki_date(date_original)
+    ),
+    date_precision = if_else(
+      str_detect(date_original, "^\\d{4}$"),
+      "year only",
+      "full date"
+    )
+  )
+```
+
+```{r}
+#| label: population-summary
+population |>
+  count(date_precision, name = "records") |>
+  kable(
+    col.names = c("Date precision", "Records"),
+    caption = "Date precision in the cleaned population table"
+  )
+
+population |>
+  select(country, population, date_original, source) |>
+  slice_head(n = 6) |>
+  kable(
+    format.args = list(big.mark = ","),
+    col.names = c("Country", "Population", "Reported date", "Source"),
+    caption = "Sample of the cleaned population table"
+  )
+```
+
+## 3. Comparison with the World Bank API
+
+I retrieved the World Bank indicator `FI.RES.TOTL.CD`, *Total reserves (includes gold, current US$)*, with one `WDI()` call. I requested 2015--2024, removed aggregate regions, and divided the values by one million so the unit matched the Wikipedia table.
+
+```{r}
+#| eval: false
+library(WDI)
+
+reserves_api <- WDI(
+  indicator = "FI.RES.TOTL.CD",
+  start = 2015,
+  end = 2024,
+  extra = TRUE
+)
+
+reserves_wb <- reserves_api |>
+  filter(region != "Aggregates") |>
+  transmute(
+    country,
+    iso3c,
+    year,
+    reserves_million_usd = FI.RES.TOTL.CD / 1000000
+  )
+```
+
+The table below compares six matched countries. The percentage difference is $100 \times (Wikipedia - World\ Bank)/World\ Bank$. This is a comparison across vintages rather than an error rate. The World Bank value is from 2024, while the Wikipedia observations are mostly from 2026 and combine more recent reports from national sources. China, Japan, Switzerland, India, and Brazil have larger values in the newer Wikipedia observations, with gaps ranging from about 3.3% to 14.2%. The United States differs in the opposite direction by about 72.1%. The date gap may explain part of the differences, but it does not establish the cause. In particular, the U.S. result requires checking the definitions and original sources used by each provider before deciding that either value is incorrect.
+
+```{r}
+#| label: comparison-table
+comparison |>
+  mutate(
+    wiki_million_usd = round(wiki_million_usd),
+    wb_million_usd = round(wb_million_usd),
+    difference_pct = round(difference_pct, 1)
+  ) |>
+  kable(
+    format.args = list(big.mark = ","),
+    col.names = c(
+      "Country", "Wikipedia date", "Wikipedia (US$ millions)",
+      "World Bank year", "World Bank (US$ millions)", "Difference (%)"
+    ),
+    caption = "Illustrative comparison of Wikipedia and World Bank reserves data"
+  )
+```
+
+Scraping is appropriate when the needed public data appear only in web pages and automated access is permitted, after confirming that no usable API, download, or bulk file exists. When a documented API provides the same quantity, I would use the API because it offers a more stable schema and clearer provenance.
+
+## 4. Web data acquisition plan: Kerr County flood discourse on X
+
+### Source and purpose
+
+My research asks: *To whom, and on what grounds, is responsibility for flood warnings and response attributed in X discourse about the July 2025 Kerr County flood, and how are these claims rebutted?* X is the appropriate primary source because the object of study is responsibility discourse on that platform. News articles or official warning archives can be used to check factual claims and reconstruct the warning timeline, but they cannot substitute for the posts being analyzed.
+
+For the current project, I used the X full-archive search API to collect 8,294 English-language posts from July 4--6, 2025, using Texas local time. The search combined place names---Kerr County, Kerrville, Camp Mystic, and Guadalupe River---with flood terms and responsibility or actor terms, including *warning*, *sirens*, *NWS*, *NOAA*, *FEMA*, *officials*, *Trump*, and *budget cuts*. Retweets were excluded. After duplicate texts and one post containing webpage code were removed, 7,262 posts remained. The collection record will retain the complete query, endpoint, requested fields, time zone, collection date, and cleaning decisions.
+
+### Permission and method
+
+I will use X's authenticated API rather than scrape the public website. Because this method does not request X web pages, `robots.txt` does not govern the API calls. If a later stage requires any page request, I will check its exact path before the first request and will not proceed if it is disallowed. API use is governed by the current X Developer Agreement, Developer Policy, and the conditions of my access level. I will review them before another collection or release. Credentials will remain outside the script, and shared material will follow the applicable storage and redistribution rules. Full-archive search also provides structured fields, pagination, and a bounded historical query. Scraping search-result pages would be less reproducible and is unnecessary while authorized API access is available.
+
+### Volume, rate limits, and caching
+
+During collection, I will monitor the endpoint's rate-limit information. Each successful response page will be cached immediately in a restricted raw-data directory with its request time, query information, and pagination token. After a rate-limit error, the script will stop and resume after the indicated reset. The collection log will allow a restarted job to continue from the last completed page instead of downloading it again. Untouched responses will remain separate from the cleaned file. The log will record returned posts, duplicate removals, excluded retweets, failed requests, and the final number of records. Access tokens will not be written to the data or log.
+
+### Changes, detection, and limitations
+
+Changes to response fields, pagination, endpoint access, rate limits, or search operators could break the collection. I will first run a small pilot and verify field names, data types, timestamp range, language values, unique identifiers, and pagination metadata. The script will stop if a required field is absent. Page-level counts and missing-value summaries will make unusual shifts visible, and the collection record will date the documentation and terms consulted.
+
+The corpus is not a representative sample of public opinion. It is limited by the three-day period, English filter, search terms, excluded retweets, deletion or privacy changes, and the population using X. I will report these limits and will publish only the acquisition procedure and aggregate counts on the assignment website, not the raw post text.
+
+### Policy references
+
+- [X policies and agreements](https://developer.x.com/en/developer-terms)
+- [About X's APIs](https://help.x.com/en/rules-and-policies/x-api)
+- [X API response codes and rate-limit guidance](https://developer.x.com/en/support/twitter-api/error-troubleshooting)
+
