@@ -1,0 +1,6 @@
+pattern,lines_reviewed,party,candidate,process,grievance
+democrat*,20,12,0,0,8
+republican*,20,6,0,0,14
+trump,20,0,11,0,9
+vote*,20,0,0,14,6
+ballot*,20,0,0,20,0

@@ -1,0 +1,6 @@
+operation,budget,planned_ceiling,actual
+"Four searches, two pages each",search,8,8
+Channel details and uploads to September 1,data,604,226
+"Video statistics, 802 IDs in batches of 50",data,17,17
+"Comments, 12 videos; replies included",data,3636,40
+Total data units,data,4257,283

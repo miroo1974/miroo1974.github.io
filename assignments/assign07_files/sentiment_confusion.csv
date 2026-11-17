@@ -1,0 +1,10 @@
+"human","dictionary","Freq"
+"negative","negative",7
+"neither","negative",3
+"positive","negative",1
+"negative","neither",6
+"neither","neither",3
+"positive","neither",7
+"negative","positive",6
+"neither","positive",4
+"positive","positive",3

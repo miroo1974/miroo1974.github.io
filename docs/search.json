@@ -299,5 +299,124 @@
     "title": "Assignment 6: Text Analytics with quanteda",
     "section": "References",
     "text": "References\n\nquanteda tutorials, chapters 1–4 and 6.\nquanteda Wordfish documentation.\nSlapin, Jonathan B., and Sven-Oliver Proksch. 2008. “A Scaling Model for Estimating Time-Series Party Positions from Texts.” American Journal of Political Science 52(3): 705–722. doi:10.1111/j.1540-5907.2008.00338.x."
+  },
+  {
+    "objectID": "assignments/assign07.html",
+    "href": "assignments/assign07.html",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "",
+    "text": "On November 17, 2026, I collected YouTube metadata and comments using tuber 3.0.0 and an API key stored outside the script. I searched US midterm election with relevance and view-count ordering, requesting 100 results each for September 1–October 27 and November 4–collection time. The two orderings shared 16 unique videos before Election Day and 24 afterward. Al Jazeera English led the pre-election relevance results; CNN dominated both view-count lists. FRANCE 24 English led post-election relevance results. Each response reported 1,000,000 results but returned only 100 rows, including duplicates. The reported total is not a verified inventory.\nI selected NBC News, CNN, and Al Jazeera English to compare a US broadcast network, cable news, and an international broadcaster. Their uploads required 81, 63, and 81 pages respectively to reach September 1. The channel route found election-related titles absent from the capped searches. My title filter was midterm|election|senate|house race|ballot. Reviewing 20 retained and 20 dropped titles revealed foreign-election false positives and likely omissions among generically titled programs. I excluded identified foreign-election patterns, but did not validate every retained video. From each channel and publication period, I selected the two videos with the most reported comments.\nAll 12 requests succeeded, returning 300 comments each: 3,600 total. Reported counts ranged from 659 to 21,040. The cap explains incomplete coverage; moderation, deletion, reply availability, and API ordering may also affect access, but these logs cannot quantify their individual effects. No selected video returned a disabled-comments status. This does not establish channel-wide moderation practices."
+  },
+  {
+    "objectID": "assignments/assign07.html#collection-and-selection",
+    "href": "assignments/assign07.html#collection-and-selection",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "",
+    "text": "On November 17, 2026, I collected YouTube metadata and comments using tuber 3.0.0 and an API key stored outside the script. I searched US midterm election with relevance and view-count ordering, requesting 100 results each for September 1–October 27 and November 4–collection time. The two orderings shared 16 unique videos before Election Day and 24 afterward. Al Jazeera English led the pre-election relevance results; CNN dominated both view-count lists. FRANCE 24 English led post-election relevance results. Each response reported 1,000,000 results but returned only 100 rows, including duplicates. The reported total is not a verified inventory.\nI selected NBC News, CNN, and Al Jazeera English to compare a US broadcast network, cable news, and an international broadcaster. Their uploads required 81, 63, and 81 pages respectively to reach September 1. The channel route found election-related titles absent from the capped searches. My title filter was midterm|election|senate|house race|ballot. Reviewing 20 retained and 20 dropped titles revealed foreign-election false positives and likely omissions among generically titled programs. I excluded identified foreign-election patterns, but did not validate every retained video. From each channel and publication period, I selected the two videos with the most reported comments.\nAll 12 requests succeeded, returning 300 comments each: 3,600 total. Reported counts ranged from 659 to 21,040. The cap explains incomplete coverage; moderation, deletion, reply availability, and API ordering may also affect access, but these logs cannot quantify their individual effects. No selected video returned a disabled-comments status. This does not establish channel-wide moderation practices."
+  },
+  {
+    "objectID": "assignments/assign07.html#what-the-comments-represent",
+    "href": "assignments/assign07.html#what-the-comments-represent",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "What the comments represent",
+    "text": "What the comments represent\nThe corpus unit is one comment, including replies, with channel, video, publication period, reply status, likes, and comment date as document variables. Comment IDs were deduplicated and connected to unique video metadata. A critical timing check found that 918 of 1,800 comments on pre-election videos were written on or after November 4. Thus, this is a retrospective comparison of video publication windows, not historical snapshots of opinion before and after voting.\nReplies ranged from 0% to 28.2% across channel-period groups. Median likes were zero throughout. In CNN’s post-election group, the top 1% of comments received 60.6% of likes, and the most active 10% of identifiable authors produced 29.5% of comments. Repeated text beyond the first occurrence ranged from zero to 22 rows per group. These patterns show unequal participation and attention; repetition alone does not establish automation."
+  },
+  {
+    "objectID": "assignments/assign07.html#text-analysis-and-validation",
+    "href": "assignments/assign07.html#text-analysis-and-validation",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Text analysis and validation",
+    "text": "Text analysis and validation\nBefore modeling, I inspected 20 KWIC lines each for democrat*, republican*, trump, vote*, and ballot*. Party labels and candidate references frequently carried blame or ridicule; ballot language often figuratively linked Trump to the midterm result. Grievances about suppression or fraud are commenters’ assertions, not verified events. I lowercased tokens, removed URLs, mentions, punctuation and numbers, and retained emoji. English stopwords were removed for keyness. Five specified election phrases were compounded, alongside the observed phrases civil war and voter suppression.\nChannel-versus-others keyness distinguished hearts, celebration and religious expressions for Al Jazeera English; Trump and other named figures for CNN; and polls, voting and wave emoji for NBC. Post-election-video comments emphasized Texas, civil war, voting and losing. These differences may reflect selected video subjects, formats and audiences rather than stable channel ideology.\nLSD2015 dictionary scores were more positive for post-election videos on Al Jazeera English and CNN, with little change for NBC. However, my independent coding of 40 randomly sampled comments agreed with the dictionary on only 13 (32.5%). Human labels were 11 positive, 19 negative and 10 neither. Sarcasm, ridicule, mixed sentiment and implicit praise make dictionary results unreliable as substantive conclusions."
+  },
+  {
+    "objectID": "assignments/assign07.html#comparison-and-data-note",
+    "href": "assignments/assign07.html#comparison-and-data-note",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Comparison and data note",
+    "text": "Comparison and data note\nAssignment 6’s summit tweets reflect platform users selected by the archived collection, while presidential documents reflect institutional communication selected through official records. These YouTube comments reflect self-selected participants beneath particular news videos, further selected by popularity, API availability, ordering and caps. Tweets and comments support bounded claims about observed communication; presidential documents support claims about official presentation. None directly measures representative public opinion. Official records are generally easier to recollect; social-media results change with availability and platform access.\nThis collection used the YouTube Data API under its terms, with separate search and data budgets. Logs record eight search calls and 283 data units. Both publication-window manifests specify deletion by December 17, 2026; raw API data will be deleted within 30 days. Only logs, manifests, aggregate tables and plots accompany this report. API keys, raw comments and commenter identities are excluded."
+  },
+  {
+    "objectID": "assignments/assign07.html#search-and-quota-tables",
+    "href": "assignments/assign07.html#search-and-quota-tables",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Search and quota tables",
+    "text": "Search and quota tables\n\n\n\nSearch\nReported Total\nReceived\nDuplicate Ids\n\n\n\n\npre_relevance\n1000000\n100\n1\n\n\npre_views\n1000000\n100\n5\n\n\npost_relevance\n1000000\n100\n2\n\n\npost_views\n1000000\n100\n0\n\n\n\n\n\n\nPeriod\nCommon Unique Videos\n\n\n\n\npre\n16\n\n\npost\n24\n\n\n\n\n\n\nOperation\nBudget\nPlanned Ceiling\nActual\n\n\n\n\nFour searches, two pages each\nsearch\n8\n8\n\n\nChannel details and uploads to September 1\ndata\n604\n226\n\n\nVideo statistics, 802 IDs in batches of 50\ndata\n17\n17\n\n\nComments, 12 videos; replies included\ndata\n3636\n40\n\n\nTotal data units\ndata\n4257\n283\n\n\n\nThe upload budget was a conservative ceiling; pagination stopped upon reaching September 1. Reply requests made comment costs variable. Separate manifests retain the original collection timestamp because both windows were collected in the same session."
+  },
+  {
+    "objectID": "assignments/assign07.html#comment-collection-by-video",
+    "href": "assignments/assign07.html#comment-collection-by-video",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Comment collection by video",
+    "text": "Comment collection by video\n\n\n\n\n\n\n\n\n\n\n\nVideo Id\nChannel Title\nPeriod\nReported Comments\nReceived Comments\nStatus\n\n\n\n\n1OV7Av2CsSg\nAl Jazeera English\npost\n2595\n300\nok\n\n\n7V2HYEE2SzY\nAl Jazeera English\npost\n2065\n300\nok\n\n\nAerLH3llCco\nCNN\npost\n15274\n300\nok\n\n\n1TpMeZUrH1M\nCNN\npost\n12286\n300\nok\n\n\nKcvo24nct00\nNBC News\npost\n951\n300\nok\n\n\nrxGlzCGz-lY\nNBC News\npost\n942\n300\nok\n\n\nBOVfS0IkWlg\nAl Jazeera English\npre\n21040\n300\nok\n\n\n9gZoy1MxQ5g\nAl Jazeera English\npre\n3845\n300\nok\n\n\nmcGbI_ommUw\nCNN\npre\n12046\n300\nok\n\n\nyy5blvw2IF4\nCNN\npre\n11855\n300\nok\n\n\naSG0tp_iuqU\nNBC News\npre\n1948\n300\nok\n\n\nhGlJi746ll0\nNBC News\npre\n659\n300\nok"
+  },
+  {
+    "objectID": "assignments/assign07.html#participation-aggregates",
+    "href": "assignments/assign07.html#participation-aggregates",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Participation aggregates",
+    "text": "Participation aggregates\n\n\n\n\n\n\n\n\n\n\n\n\nChannel\nVideo Period\nComments\nReplies (%)\nTop 1% Share Of Likes (%)\nTop 10% Authors’ Share (%)\nRepeated Text Rows\n\n\n\n\nAl Jazeera English\npost\n600\n0.0\n20.4\n14.3\n22\n\n\nCNN\npost\n600\n28.2\n60.6\n29.5\n0\n\n\nNBC News\npost\n600\n11.2\n43.3\n18.5\n2\n\n\nAl Jazeera English\npre\n600\n5.3\n26.5\n19.3\n13\n\n\nCNN\npre\n600\n2.2\n45.6\n15.7\n5\n\n\nNBC News\npre\n600\n9.3\n17.5\n21.8\n4\n\n\n\nShares are calculated separately within each channel-period group. Repeated text counts exclude its first occurrence."
+  },
+  {
+    "objectID": "assignments/assign07.html#kwic-reading-record",
+    "href": "assignments/assign07.html#kwic-reading-record",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "KWIC reading record",
+    "text": "KWIC reading record\n\n\n\nPattern\nLines\nParty\nCandidate\nProcess\nGrievance\n\n\n\n\ndemocrat*\n20\n12\n0\n0\n8\n\n\nrepublican*\n20\n6\n0\n0\n14\n\n\ntrump\n20\n0\n11\n0\n9\n\n\nvote*\n20\n0\n0\n14\n6\n\n\nballot*\n20\n0\n0\n20\n0\n\n\n\nThese exploratory, assistant-assisted classifications use one primary function per context. Explicit blame, accusations or criticism take precedence as grievance; otherwise the context is classified by party naming, candidate reference or electoral process. Boundaries are subjective: party naming can also convey hostility, and ballot language can be figurative. The first 20 matches per pattern were inspected, rather than a random sample. This tally is separate from the researcher’s independent 40-comment sentiment validation."
+  },
+  {
+    "objectID": "assignments/assign07.html#channel-comparison-al-jazeera-english",
+    "href": "assignments/assign07.html#channel-comparison-al-jazeera-english",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Channel comparison: Al Jazeera English",
+    "text": "Channel comparison: Al Jazeera English\n\n\n\nChannel comparison: Al Jazeera English"
+  },
+  {
+    "objectID": "assignments/assign07.html#channel-comparison-cnn",
+    "href": "assignments/assign07.html#channel-comparison-cnn",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Channel comparison: CNN",
+    "text": "Channel comparison: CNN\n\n\n\nChannel comparison: CNN"
+  },
+  {
+    "objectID": "assignments/assign07.html#channel-comparison-nbc-news",
+    "href": "assignments/assign07.html#channel-comparison-nbc-news",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Channel comparison: NBC News",
+    "text": "Channel comparison: NBC News\n\n\n\nChannel comparison: NBC News"
+  },
+  {
+    "objectID": "assignments/assign07.html#video-publication-periods",
+    "href": "assignments/assign07.html#video-publication-periods",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Video publication periods",
+    "text": "Video publication periods\n\n\n\nVideo publication periods"
+  },
+  {
+    "objectID": "assignments/assign07.html#dictionary-sentiment",
+    "href": "assignments/assign07.html#dictionary-sentiment",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Dictionary sentiment",
+    "text": "Dictionary sentiment\n\n\n\nDictionary sentiment"
+  },
+  {
+    "objectID": "assignments/assign07.html#sentiment-validation",
+    "href": "assignments/assign07.html#sentiment-validation",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Sentiment validation",
+    "text": "Sentiment validation\n\n\n\nReviewed\nMatched\nAgreement Pct\n\n\n\n\n40\n13\n32.5\n\n\n\n\n\n\nHuman\nDictionary\nFreq\n\n\n\n\nnegative\nnegative\n7\n\n\nneither\nnegative\n3\n\n\npositive\nnegative\n1\n\n\nnegative\nneither\n6\n\n\nneither\nneither\n3\n\n\npositive\nneither\n7\n\n\nnegative\npositive\n6\n\n\nneither\npositive\n4\n\n\npositive\npositive\n3\n\n\n\nThe dictionary classifies by positive versus negative match counts, with ties classified as neither. No-match comments have score zero. Mean score is the average of comment-level (positive − negative) / max(positive + negative, 1); it is not a measure of party support."
+  },
+  {
+    "objectID": "assignments/assign07.html#logs-manifests-and-aggregate-tables",
+    "href": "assignments/assign07.html#logs-manifests-and-aggregate-tables",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Logs, manifests and aggregate tables",
+    "text": "Logs, manifests and aggregate tables\n\ncollection manifest\ncomment collection log\ncomment quota plan\ncomment summary\ncomment timing check\nkeyness al jazeera english\nkeyness cnn\nkeyness nbc news\nkeyness post vs pre\nkwic primary referents\nmanifest post\nmanifest pre\nquota actual\nquota comparison\nsearch leading channels\nsearch overlap\nsearch quota plan\nsearch summary\nselected channels\nsentiment agreement\nsentiment confusion\nsentiment summary\nupload initial plan\nupload pagination plan\nupload summary\nvideo stats plan"
+  },
+  {
+    "objectID": "assignments/assign07.html#sources-and-reproducibility",
+    "href": "assignments/assign07.html#sources-and-reproducibility",
+    "title": "Assignment 7: YouTube API and Election Comments",
+    "section": "Sources and reproducibility",
+    "text": "Sources and reproducibility\n\ntuber documentation\nYouTube API quota costs\nYouTube API Developer Policies, III.E.4 and III.E.6\nFreelon, Deen. 2018. “Computational Research in the Post-API Age.” Political Communication 35(4): 665–668.\n\nCollection and analysis code remains in the local assignment07.R script. The posted Quarto document uses saved aggregate results and does not make API requests when rendered. Repeating collection can produce different videos, counts and comments. AI assistance supported code preparation, KWIC interpretation and report drafting; the researcher provided the 40 sentiment labels."
   }
 ]

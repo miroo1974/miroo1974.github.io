@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>miroo1974.github.io - Assignment 7: YouTube API and Election Comments</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">miroo1974.github.io</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../research.html" rel="" target="">
+ <span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../teaching.html" rel="" target="">
+ <span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html" rel="" target="">
+ <span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignments/index.html" rel="" target="">
+ <span class="menu-text">Assignments</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#collection-and-selection" id="toc-collection-and-selection" class="nav-link active" data-scroll-target="#collection-and-selection">Collection and selection</a></li>
+  <li><a href="#what-the-comments-represent" id="toc-what-the-comments-represent" class="nav-link" data-scroll-target="#what-the-comments-represent">What the comments represent</a></li>
+  <li><a href="#text-analysis-and-validation" id="toc-text-analysis-and-validation" class="nav-link" data-scroll-target="#text-analysis-and-validation">Text analysis and validation</a></li>
+  <li><a href="#comparison-and-data-note" id="toc-comparison-and-data-note" class="nav-link" data-scroll-target="#comparison-and-data-note">Comparison and data note</a></li>
+  <li><a href="#search-and-quota-tables" id="toc-search-and-quota-tables" class="nav-link" data-scroll-target="#search-and-quota-tables">Search and quota tables</a></li>
+  <li><a href="#comment-collection-by-video" id="toc-comment-collection-by-video" class="nav-link" data-scroll-target="#comment-collection-by-video">Comment collection by video</a></li>
+  <li><a href="#participation-aggregates" id="toc-participation-aggregates" class="nav-link" data-scroll-target="#participation-aggregates">Participation aggregates</a></li>
+  <li><a href="#kwic-reading-record" id="toc-kwic-reading-record" class="nav-link" data-scroll-target="#kwic-reading-record">KWIC reading record</a></li>
+  <li><a href="#channel-comparison-al-jazeera-english" id="toc-channel-comparison-al-jazeera-english" class="nav-link" data-scroll-target="#channel-comparison-al-jazeera-english">Channel comparison: Al Jazeera English</a></li>
+  <li><a href="#channel-comparison-cnn" id="toc-channel-comparison-cnn" class="nav-link" data-scroll-target="#channel-comparison-cnn">Channel comparison: CNN</a></li>
+  <li><a href="#channel-comparison-nbc-news" id="toc-channel-comparison-nbc-news" class="nav-link" data-scroll-target="#channel-comparison-nbc-news">Channel comparison: NBC News</a></li>
+  <li><a href="#video-publication-periods" id="toc-video-publication-periods" class="nav-link" data-scroll-target="#video-publication-periods">Video publication periods</a></li>
+  <li><a href="#dictionary-sentiment" id="toc-dictionary-sentiment" class="nav-link" data-scroll-target="#dictionary-sentiment">Dictionary sentiment</a></li>
+  <li><a href="#sentiment-validation" id="toc-sentiment-validation" class="nav-link" data-scroll-target="#sentiment-validation">Sentiment validation</a></li>
+  <li><a href="#logs-manifests-and-aggregate-tables" id="toc-logs-manifests-and-aggregate-tables" class="nav-link" data-scroll-target="#logs-manifests-and-aggregate-tables">Logs, manifests and aggregate tables</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 7: YouTube API and Election Comments</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="collection-and-selection" class="level2">
+<h2 class="anchored" data-anchor-id="collection-and-selection">Collection and selection</h2>
+<p>On November 17, 2026, I collected YouTube metadata and comments using tuber 3.0.0 and an API key stored outside the script. I searched <code>US midterm election</code> with relevance and view-count ordering, requesting 100 results each for September 1–October 27 and November 4–collection time. The two orderings shared 16 unique videos before Election Day and 24 afterward. Al Jazeera English led the pre-election relevance results; CNN dominated both view-count lists. FRANCE 24 English led post-election relevance results. Each response reported 1,000,000 results but returned only 100 rows, including duplicates. The reported total is not a verified inventory.</p>
+<p>I selected NBC News, CNN, and Al Jazeera English to compare a US broadcast network, cable news, and an international broadcaster. Their uploads required 81, 63, and 81 pages respectively to reach September 1. The channel route found election-related titles absent from the capped searches. My title filter was <code>midterm|election|senate|house race|ballot</code>. Reviewing 20 retained and 20 dropped titles revealed foreign-election false positives and likely omissions among generically titled programs. I excluded identified foreign-election patterns, but did not validate every retained video. From each channel and publication period, I selected the two videos with the most reported comments.</p>
+<p>All 12 requests succeeded, returning 300 comments each: 3,600 total. Reported counts ranged from 659 to 21,040. The cap explains incomplete coverage; moderation, deletion, reply availability, and API ordering may also affect access, but these logs cannot quantify their individual effects. No selected video returned a disabled-comments status. This does not establish channel-wide moderation practices.</p>
+</section>
+<section id="what-the-comments-represent" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-comments-represent">What the comments represent</h2>
+<p>The corpus unit is one comment, including replies, with channel, video, publication period, reply status, likes, and comment date as document variables. Comment IDs were deduplicated and connected to unique video metadata. A critical timing check found that 918 of 1,800 comments on pre-election videos were written on or after November 4. Thus, this is a retrospective comparison of video publication windows, not historical snapshots of opinion before and after voting.</p>
+<p>Replies ranged from 0% to 28.2% across channel-period groups. Median likes were zero throughout. In CNN’s post-election group, the top 1% of comments received 60.6% of likes, and the most active 10% of identifiable authors produced 29.5% of comments. Repeated text beyond the first occurrence ranged from zero to 22 rows per group. These patterns show unequal participation and attention; repetition alone does not establish automation.</p>
+</section>
+<section id="text-analysis-and-validation" class="level2">
+<h2 class="anchored" data-anchor-id="text-analysis-and-validation">Text analysis and validation</h2>
+<p>Before modeling, I inspected 20 KWIC lines each for <code>democrat*</code>, <code>republican*</code>, <code>trump</code>, <code>vote*</code>, and <code>ballot*</code>. Party labels and candidate references frequently carried blame or ridicule; ballot language often figuratively linked Trump to the midterm result. Grievances about suppression or fraud are commenters’ assertions, not verified events. I lowercased tokens, removed URLs, mentions, punctuation and numbers, and retained emoji. English stopwords were removed for keyness. Five specified election phrases were compounded, alongside the observed phrases <code>civil war</code> and <code>voter suppression</code>.</p>
+<p>Channel-versus-others keyness distinguished hearts, celebration and religious expressions for Al Jazeera English; Trump and other named figures for CNN; and polls, voting and wave emoji for NBC. Post-election-video comments emphasized Texas, civil war, voting and losing. These differences may reflect selected video subjects, formats and audiences rather than stable channel ideology.</p>
+<p>LSD2015 dictionary scores were more positive for post-election videos on Al Jazeera English and CNN, with little change for NBC. However, my independent coding of 40 randomly sampled comments agreed with the dictionary on only 13 (32.5%). Human labels were 11 positive, 19 negative and 10 neither. Sarcasm, ridicule, mixed sentiment and implicit praise make dictionary results unreliable as substantive conclusions.</p>
+</section>
+<section id="comparison-and-data-note" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-and-data-note">Comparison and data note</h2>
+<p>Assignment 6’s summit tweets reflect platform users selected by the archived collection, while presidential documents reflect institutional communication selected through official records. These YouTube comments reflect self-selected participants beneath particular news videos, further selected by popularity, API availability, ordering and caps. Tweets and comments support bounded claims about observed communication; presidential documents support claims about official presentation. None directly measures representative public opinion. Official records are generally easier to recollect; social-media results change with availability and platform access.</p>
+<p>This collection used the YouTube Data API under its terms, with separate search and data budgets. Logs record eight search calls and 283 data units. Both publication-window manifests specify deletion by December 17, 2026; raw API data will be deleted within 30 days. Only logs, manifests, aggregate tables and plots accompany this report. API keys, raw comments and commenter identities are excluded.</p>
+</section>
+<section id="search-and-quota-tables" class="level2">
+<h2 class="anchored" data-anchor-id="search-and-quota-tables">Search and quota tables</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Search</th>
+<th>Reported Total</th>
+<th>Received</th>
+<th>Duplicate Ids</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pre_relevance</td>
+<td>1000000</td>
+<td>100</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>pre_views</td>
+<td>1000000</td>
+<td>100</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>post_relevance</td>
+<td>1000000</td>
+<td>100</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>post_views</td>
+<td>1000000</td>
+<td>100</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Period</th>
+<th>Common Unique Videos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pre</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td>post</td>
+<td>24</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Budget</th>
+<th>Planned Ceiling</th>
+<th>Actual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Four searches, two pages each</td>
+<td>search</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>Channel details and uploads to September 1</td>
+<td>data</td>
+<td>604</td>
+<td>226</td>
+</tr>
+<tr class="odd">
+<td>Video statistics, 802 IDs in batches of 50</td>
+<td>data</td>
+<td>17</td>
+<td>17</td>
+</tr>
+<tr class="even">
+<td>Comments, 12 videos; replies included</td>
+<td>data</td>
+<td>3636</td>
+<td>40</td>
+</tr>
+<tr class="odd">
+<td>Total data units</td>
+<td>data</td>
+<td>4257</td>
+<td>283</td>
+</tr>
+</tbody>
+</table>
+<p>The upload budget was a conservative ceiling; pagination stopped upon reaching September 1. Reply requests made comment costs variable. Separate manifests retain the original collection timestamp because both windows were collected in the same session.</p>
+</section>
+<section id="comment-collection-by-video" class="level2">
+<h2 class="anchored" data-anchor-id="comment-collection-by-video">Comment collection by video</h2>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Video Id</th>
+<th>Channel Title</th>
+<th>Period</th>
+<th>Reported Comments</th>
+<th>Received Comments</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1OV7Av2CsSg</td>
+<td>Al Jazeera English</td>
+<td>post</td>
+<td>2595</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="even">
+<td>7V2HYEE2SzY</td>
+<td>Al Jazeera English</td>
+<td>post</td>
+<td>2065</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="odd">
+<td>AerLH3llCco</td>
+<td>CNN</td>
+<td>post</td>
+<td>15274</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="even">
+<td>1TpMeZUrH1M</td>
+<td>CNN</td>
+<td>post</td>
+<td>12286</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="odd">
+<td>Kcvo24nct00</td>
+<td>NBC News</td>
+<td>post</td>
+<td>951</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="even">
+<td>rxGlzCGz-lY</td>
+<td>NBC News</td>
+<td>post</td>
+<td>942</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="odd">
+<td>BOVfS0IkWlg</td>
+<td>Al Jazeera English</td>
+<td>pre</td>
+<td>21040</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="even">
+<td>9gZoy1MxQ5g</td>
+<td>Al Jazeera English</td>
+<td>pre</td>
+<td>3845</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="odd">
+<td>mcGbI_ommUw</td>
+<td>CNN</td>
+<td>pre</td>
+<td>12046</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="even">
+<td>yy5blvw2IF4</td>
+<td>CNN</td>
+<td>pre</td>
+<td>11855</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="odd">
+<td>aSG0tp_iuqU</td>
+<td>NBC News</td>
+<td>pre</td>
+<td>1948</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+<tr class="even">
+<td>hGlJi746ll0</td>
+<td>NBC News</td>
+<td>pre</td>
+<td>659</td>
+<td>300</td>
+<td>ok</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="participation-aggregates" class="level2">
+<h2 class="anchored" data-anchor-id="participation-aggregates">Participation aggregates</h2>
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Channel</th>
+<th>Video Period</th>
+<th>Comments</th>
+<th>Replies (%)</th>
+<th>Top 1% Share Of Likes (%)</th>
+<th>Top 10% Authors’ Share (%)</th>
+<th>Repeated Text Rows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Al Jazeera English</td>
+<td>post</td>
+<td>600</td>
+<td>0.0</td>
+<td>20.4</td>
+<td>14.3</td>
+<td>22</td>
+</tr>
+<tr class="even">
+<td>CNN</td>
+<td>post</td>
+<td>600</td>
+<td>28.2</td>
+<td>60.6</td>
+<td>29.5</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>NBC News</td>
+<td>post</td>
+<td>600</td>
+<td>11.2</td>
+<td>43.3</td>
+<td>18.5</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Al Jazeera English</td>
+<td>pre</td>
+<td>600</td>
+<td>5.3</td>
+<td>26.5</td>
+<td>19.3</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td>CNN</td>
+<td>pre</td>
+<td>600</td>
+<td>2.2</td>
+<td>45.6</td>
+<td>15.7</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>NBC News</td>
+<td>pre</td>
+<td>600</td>
+<td>9.3</td>
+<td>17.5</td>
+<td>21.8</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>Shares are calculated separately within each channel-period group. Repeated text counts exclude its first occurrence.</p>
+</section>
+<section id="kwic-reading-record" class="level2">
+<h2 class="anchored" data-anchor-id="kwic-reading-record">KWIC reading record</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Lines</th>
+<th>Party</th>
+<th>Candidate</th>
+<th>Process</th>
+<th>Grievance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>democrat*</td>
+<td>20</td>
+<td>12</td>
+<td>0</td>
+<td>0</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>republican*</td>
+<td>20</td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td>trump</td>
+<td>20</td>
+<td>0</td>
+<td>11</td>
+<td>0</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>vote*</td>
+<td>20</td>
+<td>0</td>
+<td>0</td>
+<td>14</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>ballot*</td>
+<td>20</td>
+<td>0</td>
+<td>0</td>
+<td>20</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>These exploratory, assistant-assisted classifications use one primary function per context. Explicit blame, accusations or criticism take precedence as grievance; otherwise the context is classified by party naming, candidate reference or electoral process. Boundaries are subjective: party naming can also convey hostility, and ballot language can be figurative. The first 20 matches per pattern were inspected, rather than a random sample. This tally is separate from the researcher’s independent 40-comment sentiment validation.</p>
+</section>
+<section id="channel-comparison-al-jazeera-english" class="level2">
+<h2 class="anchored" data-anchor-id="channel-comparison-al-jazeera-english">Channel comparison: Al Jazeera English</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assign07_figures/keyness_al_jazeera_english.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Channel comparison: Al Jazeera English</figcaption>
+</figure>
+</div>
+</section>
+<section id="channel-comparison-cnn" class="level2">
+<h2 class="anchored" data-anchor-id="channel-comparison-cnn">Channel comparison: CNN</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assign07_figures/keyness_cnn.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Channel comparison: CNN</figcaption>
+</figure>
+</div>
+</section>
+<section id="channel-comparison-nbc-news" class="level2">
+<h2 class="anchored" data-anchor-id="channel-comparison-nbc-news">Channel comparison: NBC News</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assign07_figures/keyness_nbc_news.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Channel comparison: NBC News</figcaption>
+</figure>
+</div>
+</section>
+<section id="video-publication-periods" class="level2">
+<h2 class="anchored" data-anchor-id="video-publication-periods">Video publication periods</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assign07_figures/keyness_post_vs_pre.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Video publication periods</figcaption>
+</figure>
+</div>
+</section>
+<section id="dictionary-sentiment" class="level2">
+<h2 class="anchored" data-anchor-id="dictionary-sentiment">Dictionary sentiment</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assign07_figures/comment_sentiment.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Dictionary sentiment</figcaption>
+</figure>
+</div>
+</section>
+<section id="sentiment-validation" class="level2">
+<h2 class="anchored" data-anchor-id="sentiment-validation">Sentiment validation</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Reviewed</th>
+<th>Matched</th>
+<th>Agreement Pct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>40</td>
+<td>13</td>
+<td>32.5</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Human</th>
+<th>Dictionary</th>
+<th>Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>negative</td>
+<td>negative</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>neither</td>
+<td>negative</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>positive</td>
+<td>negative</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>negative</td>
+<td>neither</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>neither</td>
+<td>neither</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>positive</td>
+<td>neither</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>negative</td>
+<td>positive</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>neither</td>
+<td>positive</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>positive</td>
+<td>positive</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>The dictionary classifies by positive versus negative match counts, with ties classified as neither. No-match comments have score zero. Mean score is the average of comment-level <code>(positive − negative) / max(positive + negative, 1)</code>; it is not a measure of party support.</p>
+</section>
+<section id="logs-manifests-and-aggregate-tables" class="level2">
+<h2 class="anchored" data-anchor-id="logs-manifests-and-aggregate-tables">Logs, manifests and aggregate tables</h2>
+<ul>
+<li><a href="assign07_files/collection_manifest.csv">collection manifest</a></li>
+<li><a href="assign07_files/comment_collection_log.csv">comment collection log</a></li>
+<li><a href="assign07_files/comment_quota_plan.csv">comment quota plan</a></li>
+<li><a href="assign07_files/comment_summary.csv">comment summary</a></li>
+<li><a href="assign07_files/comment_timing_check.csv">comment timing check</a></li>
+<li><a href="assign07_files/keyness_al_jazeera_english.csv">keyness al jazeera english</a></li>
+<li><a href="assign07_files/keyness_cnn.csv">keyness cnn</a></li>
+<li><a href="assign07_files/keyness_nbc_news.csv">keyness nbc news</a></li>
+<li><a href="assign07_files/keyness_post_vs_pre.csv">keyness post vs pre</a></li>
+<li><a href="assign07_files/kwic_primary_referents.csv">kwic primary referents</a></li>
+<li><a href="assign07_files/manifest_post.csv">manifest post</a></li>
+<li><a href="assign07_files/manifest_pre.csv">manifest pre</a></li>
+<li><a href="assign07_files/quota_actual.csv">quota actual</a></li>
+<li><a href="assign07_files/quota_comparison.csv">quota comparison</a></li>
+<li><a href="assign07_files/search_leading_channels.csv">search leading channels</a></li>
+<li><a href="assign07_files/search_overlap.csv">search overlap</a></li>
+<li><a href="assign07_files/search_quota_plan.csv">search quota plan</a></li>
+<li><a href="assign07_files/search_summary.csv">search summary</a></li>
+<li><a href="assign07_files/selected_channels.csv">selected channels</a></li>
+<li><a href="assign07_files/sentiment_agreement.csv">sentiment agreement</a></li>
+<li><a href="assign07_files/sentiment_confusion.csv">sentiment confusion</a></li>
+<li><a href="assign07_files/sentiment_summary.csv">sentiment summary</a></li>
+<li><a href="assign07_files/upload_initial_plan.csv">upload initial plan</a></li>
+<li><a href="assign07_files/upload_pagination_plan.csv">upload pagination plan</a></li>
+<li><a href="assign07_files/upload_summary.csv">upload summary</a></li>
+<li><a href="assign07_files/video_stats_plan.csv">video stats plan</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
